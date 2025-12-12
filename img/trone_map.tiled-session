@@ -1,0 +1,43 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "trone_map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "trone_map.tmx": {
+            "scale": 1.8519,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 93.14757816296775,
+                "y": 144.44624439764564
+            }
+        },
+        "trone_tiles.tsx": {
+            "scaleInDock": 2.1853,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "/Users/ekat/Documents/projects/little fantasy game/img",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 40,
+    "openFiles": [
+        "trone_map.tmx"
+    ],
+    "project": "trone_map.tiled-project",
+    "recentFiles": [
+        "trone_map.tmx",
+        "trone_tiles.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
