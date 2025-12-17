@@ -1,50 +1,39 @@
 #ifndef MAP_H
 #define MAP_H
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include "ResourceManager.h"
 
-#include <SFML/Graphics.hpp>
-
-const int HEIGHT_MAP = 25;//размер карты высота
-const int WIDTH_MAP = 40;//размер карты ширина 
-
-inline sf::String TileMap[HEIGHT_MAP] = {
-	"0000000000000000000000000000000000000000",
-	"0         0        s   0         h     0",
-	"0   s 0        d       0     s         0",
-	"0 ddd 0  d     000000000               0",
-	"0000000                    d           0",
-	"0             s                        0",
-	"0    h                                 0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0                                      0",
-	"0000000000000000000000000000000000000000",
-};
-
-class Map {
+class Map{
 public:
-	Map(sf::String F);
-	~Map() {}
-	void update(sf::RenderWindow &window);
+    Map( std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager);
+    void updateMap(std::string mapTileName);
 
+    void drawFloorLatyer(sf::RenderWindow& window);
+    void drawWallsLatyer(sf::RenderWindow& window);
+    void drawEntityLatyer(sf::RenderWindow& window);
+    void drawObjectsLatyer(sf::RenderWindow& window);
+    const std::vector<std::vector<int>>& getFloorLayer() const { return _floorLayer; }
+    const std::vector<std::vector<int>>& getWallsLayer() const { return _wallsLayer; }
+    const std::vector<std::vector<int>>& getEntityLayer() const { return _entityLayer; }
+    const std::vector<std::vector<int>>& getObjectsLayer() const { return _objectsLayer; }
+    
 private:
-	sf::String File;
-	sf::Image map_image;
-	sf::Texture map;
-	sf::Sprite s_map;
+    std::vector<std::vector<int>> _floorLayer;
+    std::vector<std::vector<int>> _wallsLayer;
+    std::vector<std::vector<int>> _entityLayer;
+    std::vector<std::vector<int>> _objectsLayer;
+    ResourceManager& _resManager;
+    const sf::Texture* _tilesetTexture;
+    int _tilesetColumns;
+    int _tilesetRows; //не использую
+    int _w;
+    int _h;
+    int _tileSize;
+
+    std::vector<int> parseCSV(const std::string& csvLine);
+    void parseTMX();
 };
 
 #endif // MAP_H

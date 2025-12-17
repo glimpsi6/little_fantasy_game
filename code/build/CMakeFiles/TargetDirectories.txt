@@ -1,3 +1,0 @@
-/Users/ekat/Documents/projects/little fantasy game/code/build/CMakeFiles/game.dir
-/Users/ekat/Documents/projects/little fantasy game/code/build/CMakeFiles/edit_cache.dir
-/Users/ekat/Documents/projects/little fantasy game/code/build/CMakeFiles/rebuild_cache.dir

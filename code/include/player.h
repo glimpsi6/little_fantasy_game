@@ -1,49 +1,29 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#include "Character.h"
+#include "InputManager.h"
+#include "Сollisions.h"
 
-#include <SFML/Graphics.hpp>
-#include "map.h"
-
-enum Direction
+class Player : public Character
 {
-    RIGHT, //0
-    LEFT, //1
-    DOWN, //2
-    UP //3
-};
-
-class Player { // класс Игрока
 public:
-    Player(sf::String F, float X, float Y, float W, float H);
-    ~Player(){}
+    Player(float X, float Y, ResourceManager& resManager, 
+           float W, float H, InputManager& inManager, Collisions& collis);
+    ~Player() override = default;
 
-    int playerScore;
-    int health;
-    bool isAlive;
+    void update(float time) override;
+    void reset() override;
 
-    void update(float time);
     void handleInput(float time, float& currentFrame);
-    sf::Sprite getSprite() { return sprite; }
-    sf::View getView() { return view; }
-    void reset();
+    const sf::View& getView() const { return _view; }
+    
+protected:
+    InputManager& _inManager;
+    Collisions& _collis;
+    sf::View _view;
 
-private:
-    sf::String File;
-    sf::Image Image;
-    sf::Texture texture;
-    sf::Sprite sprite;
-    sf::View view;
-    int direct;
-    float x, y; //координаты игрока х и у
-    float w, h; // ширина высота
-    float dx, dy, speed; // ускорение (по х и по у), сама скорость
-
-    void loadTextures();
-    void setupSprite();
-    void setDirection(enum Direction d) { direct = d; }
-    void setSpeed(float s) { speed = s; }
-    sf::View getPlayerView(float x, float y);
-    void interactionWithMap();
+    void setupSprite() override;
+    sf::View getPlayerView();
 };
 
 #endif // PLAYER_H

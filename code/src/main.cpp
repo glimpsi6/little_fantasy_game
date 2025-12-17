@@ -1,68 +1,61 @@
-#include "player.h"
-#include "map.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <fstream>
 #include <sstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <cstdlib>
+#include "Player.h"
+#include "Game.h"
+#include "Map.h"
+#include "Collisions.h"
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode({640, 480}), "Test");
-
-    Player p("sleeper.png", 50, 50, 32, 32);
-	Map map("../assets/map.png");
-
-	float currentFrame = 0;//хранит текущий кадр
+int main() {
+    const int MAP_WIDTH = 40;
+    const int MAP_HEIGHT = 30;
+    ResourceManager resManager;
+    InputManager inManager;
+    resManager.loadResource(IdnLocation::CASTLE);
+    Map map("trone_tiles", MAP_WIDTH, MAP_HEIGHT, TILE_SIZE, resManager);
+    Collisions collis(map);
+    
+    float currentFrame = 0; //хранит текущий кадр
 	sf::Clock clock;
+    
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
 
-	sf::Font font;
-	font.loadFromFile("../assets/CyrilicOld.ttf");
-	sf::Text text("", font, 20);
-	text.setFillColor(sf::Color::Red);
-	text.setStyle(sf::Text::Bold);
-
-    while (window.isOpen())
-	{
-		if(p.isAlive == false) {
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-				p.reset();
-			}
-		}
+	Player p(310, 360, resManager, 16, 16, inManager, collis);
+    
+    // Главный игровой цикл
+    while (window.isOpen()) {
 
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 		time = time / 800;
- 
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-        
-		window.clear();
 
-        p.handleInput(time, currentFrame);
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        
+        window.clear(sf::Color::Black);
+
+        inManager.update();
+		p.handleInput(time, currentFrame);
 		p.update(time);
 		window.setView(p.getView());
-		map.update(window);
-		
-		std::stringstream ss;
-		ss << "Stone score: " << p.playerScore << " | Health: " << p.health;
-		text.setString(ss.str());
-		text.setPosition(p.getView().getCenter().x - 165, p.getView().getCenter().y - 200);
-		window.draw(text);
+        
+        map.drawFloorLatyer(window);
+        map.drawWallsLatyer(window);
+        window.draw(p.getSprite());
+        map.drawObjectsLatyer(window);
+        
+        window.display();
+    }
+    
+    resManager.unloadResource();
 
-		if(!p.isAlive) {
-			sf::Text gameOverText("Game Over\nPress Enter", font, 50);
-			gameOverText.setFillColor(sf::Color::Red);
-			gameOverText.setStyle(sf::Text::Bold);
-			gameOverText.setPosition(p.getView().getCenter().x - 100, p.getView().getCenter().y - 25);
-			window.draw(gameOverText);
-			window.display();
-			continue;
-		}
-
-		window.draw(p.getSprite());
-		window.display();
-	}
- 
-	return 0;
+    return 0;
 }
