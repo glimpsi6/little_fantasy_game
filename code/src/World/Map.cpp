@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "World/Map.h"
 
 Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager) :
     _w(W), _h(H), _tileSize(tileSize), _resManager(resManager),

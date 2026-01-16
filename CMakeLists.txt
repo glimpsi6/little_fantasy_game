@@ -10,26 +10,34 @@ set(SFML_DIR "/opt/homebrew/opt/sfml@2/lib/cmake/SFML")
 find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 file(COPY ${CMAKE_SOURCE_DIR}/code/assets DESTINATION ${CMAKE_BINARY_DIR})
 
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/code/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/code/src
+)
+
 set(HEADERS
-    code/include/Game.h
-    code/include/GameStateManager.h
-    code/include/InputManager.h
-    code/include/ResourceManager.h
-    code/include/Entity.h
-    code/include/Character.h
-    code/include/Player.h
-    code/include/Collisions.h
+    code/include/Core/Game.h
+    code/include/Core/GameStateManager.h
+    code/include/Core/InputManager.h
+    code/include/Core/ResourceManager.h
+    code/include/Entities/Entity.h
+    code/include/Entities/Character.h
+    code/include/Entities/Player.h
+    code/include/Entities/Npc.h
+    code/include/World/Map.h
+    code/include/World/Collisions.h
 )
 
 set(SOURCES
-    code/src/main.cpp
-    code/src/InputManager.cpp
-    code/src/ResourceManager.cpp
-    code/src/Map.cpp
-    code/src/Player.cpp
-    code/src/Collisions.cpp
+    code/src/Core/main.cpp
+    code/src/Core/InputManager.cpp
+    code/src/Core/ResourceManager.cpp
+    code/src/Core/Game.cpp
+    code/src/Entities/Player.cpp
+    code/src/Entities/Npc.cpp
+    code/src/World/Map.cpp
+    code/src/World/Collisions.cpp
 )
 
 add_executable(game ${SOURCES} ${HEADERS})
-target_include_directories(game PRIVATE ${CMAKE_SOURCE_DIR}/code/include)
 target_link_libraries(game sfml-graphics sfml-window sfml-audio sfml-system tinyxml2)

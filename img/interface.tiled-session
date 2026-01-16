@@ -3,19 +3,21 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "trone_map.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "interface.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "trone_map.tmx": {
-            "scale": 2.4,
+            "scale": 2.0003,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 79.79166666666666,
-                "y": 159.79166666666669
+                "x": 354.6967954806778,
+                "y": 257.7113432985052
             }
         },
         "trone_tiles.tsx": {
@@ -29,12 +31,14 @@
     "map.tileWidth": 16,
     "map.width": 40,
     "openFiles": [
+        "trone_map.tmx",
+        "trone_tiles.tsx"
     ],
     "project": "interface.tiled-project",
     "recentFiles": [
         "trone_tiles.tsx",
-        "interface.tsx",
-        "trone_map.tmx"
+        "trone_map.tmx",
+        "interface.tsx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.lastUsedFormat": "tsx",

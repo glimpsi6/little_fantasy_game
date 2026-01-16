@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <string>
 #include <vector>
-#include "Game.h"
+#include "Core/Game.h"
 
 class ResourceManager {
 public:

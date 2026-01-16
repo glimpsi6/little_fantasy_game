@@ -1,6 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-#include "Entity.h"
+#include "Entities/Entity.h"
 
 enum Direction
 {
@@ -18,6 +18,13 @@ struct movingData
     Direction direct; // направление персонажа
 };
 
+struct health
+{
+    int maxH; // максимальное значение здоровья
+    int minH; // минимальное значение здоровья
+    int currH; // текущее значение здоровья
+};
+
 class Character : public Entity
 {
 public:
@@ -32,6 +39,9 @@ public:
 
     void setSpeed(float s) { _mD.speed = s; }
     void setDirection(enum Direction d) { _mD.direct = d; }
+
+    float getWidth() { return _w; }
+    float getHeight() { return _h; }
 protected:
     float _w, _h; //ширина и высота спрайта персонажа
     movingData _mD;

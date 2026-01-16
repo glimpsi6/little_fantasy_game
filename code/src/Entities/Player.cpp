@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Entities/Player.h"
 
 Player::Player(float X, float Y, ResourceManager& resManager, 
                float W, float H, InputManager& inManager, Collisions& collis)

@@ -1,8 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Character.h"
-#include "InputManager.h"
-#include "Сollisions.h"
+#include "Entities/Character.h"
+#include "Core/InputManager.h"
+#include "World/Collisions.h"
 
 class Player : public Character
 {
