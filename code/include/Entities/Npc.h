@@ -3,7 +3,9 @@
 #include "Entities/Character.h"
 #include "World/Collisions.h"
 
-//класс мирных нпс
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Класс мирных NPC, , дочерний от класса Character*/
 class Npc : public Character
 {
 public:
@@ -13,11 +15,13 @@ public:
     void update(float time) override;
     void reset() override;
     void setupSprite() override;
-    void setMoving(float x, float y, float time, float& currentFrame); //сюда еще проверку на коллизии чтобы не стукался
+    void setMoving(float x, float y, float time, float& currentFrame); //TODO сюда проверку на коллизии чтобы не стукался
 
 protected:
     Collisions& _collis;
     bool _isMoving;
 };
+
+/*---------------------------------------------------------------------------------------*/
 
 #endif // Npc_H

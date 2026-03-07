@@ -75,11 +75,11 @@ void Map::drawEntityLatyer(sf::RenderWindow& window)
 
 }
 
-void Map::drawObjectsLatyer(sf::RenderWindow& window)
+void Map::drawFringeLatyer(sf::RenderWindow& window)
 {
     for (int y = 0; y < _h; y++) {
         for (int x = 0; x < _w; x++) {
-            int tileId = _objectsLayer[y][x];
+            int tileId = _fringeLayer[y][x];
             if (tileId > 0) {
                 // Обработка флагов
                 tileId--;
@@ -154,7 +154,7 @@ void Map::parseTMX()
         }
         else if (line.find("<layer id=\"3\"") != std::string::npos) {
             currentLayer = 2; // objects
-            _objectsLayer.resize(_h, std::vector<int>(_w, 0));
+            _fringeLayer.resize(_h, std::vector<int>(_w, 0));
         }
         // Ищем данные слоя
         else if (currentLayer >= 0 && line.find("<data encoding=\"csv\">") != std::string::npos) {
@@ -171,7 +171,7 @@ void Map::parseTMX()
                         _wallsLayer[row] = rowData;
                     }
                     else if (currentLayer == 2) {
-                        _objectsLayer[row] = rowData;
+                        _fringeLayer[row] = rowData;
                     }
                     row++;
                 }

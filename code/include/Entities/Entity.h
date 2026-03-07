@@ -3,9 +3,14 @@
 #include "Core/ResourceManager.h"
 #include "Core/Game.h"
 
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Структура контекста координатов*/
 struct Coordinates
 {
+    // Координата x
     float x;
+    // Координата y
     float y;
 
     // Перегрузка оператора ==
@@ -22,24 +27,44 @@ struct Coordinates
     }
 };
 
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Абстрактный класс сущности*/
 class Entity
 {
 public:
+    /*! \brief Конструктор класса, инициализирует координаты и ресурсы сущности*/
+    /*! \param X координата x*/
+    /*! \param Y координата y*/
+    /*! \param resManager ссылка на ресурсы*/
     Entity(float X, float Y, ResourceManager& resManager) :
         _coord{X, Y}, _resManager(resManager) {}
+    /*! \brief Виртуальная функция деструктора*/
     virtual ~Entity() = default;
 
+    /*! \brief Виртуальная функция обновления параметров класса*/
+    /*! \param time время обновления кадра*/
     virtual void update(float time) = 0;
+    /*! \brief Виртуальная функция сбрасывания параметров класса*/
     virtual void reset() = 0;
+    /*! \brief Функция отрисовки спрайта объекта*/
+    /*! \param window окно вывода*/
     void drawEntity(sf::RenderWindow& window) { window.draw(_sprite); }
+    /*! \brief Функция получения координатов объекта класса*/
     Coordinates getCoord() { return _coord; }
 
 protected:
+    /*! \brief ссылка на ресурсы класса*/
     ResourceManager& _resManager;
+    /*! \brief координаты класса*/
     Coordinates _coord;
+    /*! \brief спрайт класса*/
     sf::Sprite _sprite;
 
+    /*! \brief Виртуальная функция установки спрайта*/
     virtual void setupSprite() = 0;
 };
+
+/*---------------------------------------------------------------------------------------*/
 
 #endif // ENTITY_H

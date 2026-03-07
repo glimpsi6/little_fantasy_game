@@ -58,7 +58,7 @@ int main() {
         map.drawWallsLatyer(window);
         p.drawEntity(window);
         npc.drawEntity(window);
-        map.drawObjectsLatyer(window);
+        map.drawFringeLatyer(window);
         
         window.display();
     }

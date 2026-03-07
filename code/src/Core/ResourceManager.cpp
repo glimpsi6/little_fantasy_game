@@ -1,14 +1,17 @@
 #include "Core/ResourceManager.h"
 #include <iostream>
 
+/*---------------------------------------------------------------------------------------*/
+
 ResourceManager::ResourceManager()
 {
-    //загрузка глобальных ресурсов
-    std::string path = "assets/global/textures/";
-    loadTextures(path, _globalTextures);
-    path = "assets/global/fonts/";
-    loadFonts(path, _globalFonts);
+    // Загрузка глобальных текстур
+    loadTextures("assets/global/textures/", _globalTextures);
+    // Загрузка шрифтов
+    loadFonts("assets/global/fonts/", _globalFonts);
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 void ResourceManager::loadResource(enum IdnLocation idnLoc)
 {
@@ -22,7 +25,7 @@ void ResourceManager::loadResource(enum IdnLocation idnLoc)
     loadSounds(path, _levelSounds);
     
     /*нужно загрузить:
-    отельно раз за игру hero.png
+    отдельно 1 раз за игру hero.png
     0)  assets/trone_tiles.png это в текстуры 
         assets/trone_map.tmx это в карты
         пара для коридора
@@ -38,12 +41,16 @@ void ResourceManager::loadResource(enum IdnLocation idnLoc)
         пара для дерева*/
 } 
 
+/*---------------------------------------------------------------------------------------*/
+
 void ResourceManager::unloadResource()
 {
     _levelTextures.clear(); 
     _levelMaps.clear();
     _levelSounds.clear(); 
 } 
+
+/*---------------------------------------------------------------------------------------*/
 
 const sf::Texture& ResourceManager::getGlobalTexture(const std::string& id) const
 {
@@ -54,6 +61,8 @@ const sf::Texture& ResourceManager::getGlobalTexture(const std::string& id) cons
     return it->second;
 }
 
+/*---------------------------------------------------------------------------------------*/
+
 const sf::Font& ResourceManager::getGlobalFont(const std::string& id) const
 {
     auto it = _globalFonts.find(id);
@@ -62,6 +71,8 @@ const sf::Font& ResourceManager::getGlobalFont(const std::string& id) const
     }
     return it->second;
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 const sf::SoundBuffer& ResourceManager::getGlobalSoundBuffer(const std::string& id) const
 {
@@ -72,6 +83,8 @@ const sf::SoundBuffer& ResourceManager::getGlobalSoundBuffer(const std::string& 
     return it->second;
 }
 
+/*---------------------------------------------------------------------------------------*/
+
 const sf::Texture& ResourceManager::getLevelTexture(const std::string& id) const
 {
     auto it = _levelTextures.find(id);
@@ -80,6 +93,8 @@ const sf::Texture& ResourceManager::getLevelTexture(const std::string& id) const
     }
     return it->second;
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 const std::string& ResourceManager::getLevelMap(const std::string& id) const
 {
@@ -90,6 +105,8 @@ const std::string& ResourceManager::getLevelMap(const std::string& id) const
     return it->second;
 }
 
+/*---------------------------------------------------------------------------------------*/
+
 const sf::SoundBuffer& ResourceManager::getLevelSoundBuffer(const std::string& id) const
 {
     auto it = _levelSounds.find(id);
@@ -98,6 +115,8 @@ const sf::SoundBuffer& ResourceManager::getLevelSoundBuffer(const std::string& i
     }
     return it->second;
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 void ResourceManager::loadTextures(std::string path, std::map<std::string, sf::Texture>& textures)
 {
@@ -108,10 +127,12 @@ void ResourceManager::loadTextures(std::string path, std::map<std::string, sf::T
             std::string name = filename.substr(0, dotPos);
 
             textures[name] = sf::Texture();
-            textures[name].loadFromFile(path + filename);
+            textures[name].loadFromFile(path + filename); //TODO во всех лоады сделать проверку
         }
     }
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 void ResourceManager::loadMaps(std::string path, std::map<std::string, std::string>& maps)
 {
@@ -125,6 +146,8 @@ void ResourceManager::loadMaps(std::string path, std::map<std::string, std::stri
         }
     }
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 void ResourceManager::loadFonts(std::string path, std::map<std::string, sf::Font>& fonts)
 {
@@ -140,6 +163,8 @@ void ResourceManager::loadFonts(std::string path, std::map<std::string, sf::Font
     }
 }
 
+/*---------------------------------------------------------------------------------------*/
+
 void ResourceManager::loadSounds(std::string path, std::map<std::string, sf::SoundBuffer>& sounds)
 {
     for (const auto& entry : std::filesystem::directory_iterator(path)) {
@@ -153,3 +178,5 @@ void ResourceManager::loadSounds(std::string path, std::map<std::string, sf::Sou
         }
     }
 }
+
+/*---------------------------------------------------------------------------------------*/

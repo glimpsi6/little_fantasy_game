@@ -1,5 +1,7 @@
 #include "Core/InputManager.h"
 
+/*---------------------------------------------------------------------------------------*/
+
 void InputManager::update() {
     // WASD
     m_keyStates[sf::Keyboard::W] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
@@ -21,7 +23,11 @@ void InputManager::update() {
     m_keyStates[sf::Keyboard::E] = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 }
     
+/*---------------------------------------------------------------------------------------*/
+
 bool InputManager::isKeyPressed(sf::Keyboard::Key key) const {
     auto it = m_keyStates.find(key);
     return (it != m_keyStates.end()) ? it->second : false;
 }
+
+/*---------------------------------------------------------------------------------------*/

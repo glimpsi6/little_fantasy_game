@@ -2,6 +2,9 @@
 #define CHARACTER_H
 #include "Entities/Entity.h"
 
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Перечисление направлений движения объекта*/
 enum Direction
 {
     RIGHT, //0
@@ -10,6 +13,9 @@ enum Direction
     UP //3
 };
 
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Структура контекста о пермещении*/
 struct movingData
 {
     float dx; // ускорение по х 
@@ -18,6 +24,9 @@ struct movingData
     Direction direct; // направление персонажа
 };
 
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Структура контекста о здоровье объекта*/
 struct health
 {
     int maxH; // максимальное значение здоровья
@@ -25,26 +34,50 @@ struct health
     int currH; // текущее значение здоровья
 };
 
+/*---------------------------------------------------------------------------------------*/
+
+/*! \brief Абстрактный класс персонажа, дочерний от класса Entity*/
 class Character : public Entity
 {
 public:
+    /*! \brief Конструктор класса, инициализирует координаты, ресурсы персонажа, его высоту и ширину*/
+    /*! \param X координата x*/
+    /*! \param Y координата y*/
+    /*! \param resManager ссылка на ресурсы*/
+    /*! \param W ширина персонажа*/
+    /*! \param H высота персонажа*/
     Character(float X, float Y, ResourceManager& resManager, float W, float H) :
         Entity(X, Y, resManager), _w(W), _h(H), 
         _mD{0, 0, 0, Direction::RIGHT} {};
+    /*! \brief Виртуальная функция деструктора*/
     virtual ~Character() = default;
 
+    /*! \brief Функция обновления параметров класса*/
+    /*! \param time время обновления кадра*/
     void update(float time) override = 0;
+    /*! \brief Функция сбрасывания параметров класса*/
     void reset() override = 0;
+    /*! \brief Функция установки спрайта*/
     void setupSprite() override = 0;
 
+    /*! \brief Функция установления скорости*/
+    /*! \param s скорость*/
     void setSpeed(float s) { _mD.speed = s; }
+    /*! \brief Функция установления направления*/
+    /*! \param d направление*/
     void setDirection(enum Direction d) { _mD.direct = d; }
 
+    /*! \brief Функция получения ширины персонажа*/
     float getWidth() { return _w; }
+    /*! \brief Функция получения высоты персонажа*/
     float getHeight() { return _h; }
 protected:
-    float _w, _h; //ширина и высота спрайта персонажа
+    /*! \brief Ширина и высота спрайта персонажа*/
+    float _w, _h; 
+    /*! \brief Контекст перемещения персонажа*/
     movingData _mD;
 };
+
+/*---------------------------------------------------------------------------------------*/
 
 #endif // CHARACTER_H

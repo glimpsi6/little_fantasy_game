@@ -4,6 +4,8 @@
 #include "Core/InputManager.h"
 #include "World/Collisions.h"
 
+/*---------------------------------------------------------------------------------------*/
+
 class Player : public Character
 {
 public:
@@ -25,5 +27,7 @@ protected:
     void setupSprite() override;
     sf::View getPlayerView();
 };
+
+/*---------------------------------------------------------------------------------------*/
 
 #endif // PLAYER_H
