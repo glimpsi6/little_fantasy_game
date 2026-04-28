@@ -6,11 +6,11 @@
 class Collisions
 {
 public:
-    Collisions(Map map) : _map(map) {}
+    Collisions(Map& map) : _map(map) {}
     void interactionWithMap(Coordinates& coord, movingData& mD, int w, int h);
     void setCharacters(std::vector<std::shared_ptr<Character>>& characters);
 private:
-    Map _map;
+    Map& _map;
     std::vector<std::shared_ptr<Character>>* _characters;
 };
 

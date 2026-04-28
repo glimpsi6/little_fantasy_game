@@ -1,7 +1,8 @@
 #include "Entities/Npc.h"
+#include "World/Collisions.h"
 
-Npc::Npc(float X, float Y, ResourceManager& resManager, float W, float H, Collisions& collis) :
-        Character(X, Y, resManager, W, H), _collis(collis)
+Npc::Npc(std::string npcName, float X, float Y, ResourceManager& resManager, int W, int H, Collisions& collis) :
+        _npcName(npcName), Character(X, Y, resManager, W, H), _collis(collis)
 {
     _isMoving = false;
     setupSprite();
@@ -19,7 +20,7 @@ void Npc::reset()
 
 void Npc::setupSprite()
 {
-    _sprite.setTexture(_resManager.getGlobalTexture("hero"));
+    _sprite.setTexture(_resManager.getLevelTexture(_npcName));
     _sprite.setTextureRect(sf::IntRect(0, 0, _w, _h));
 }
 

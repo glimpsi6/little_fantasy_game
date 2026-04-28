@@ -1,7 +1,7 @@
 #include "Entities/Player.h"
 
 Player::Player(float X, float Y, ResourceManager& resManager, 
-               float W, float H, InputManager& inManager, Collisions& collis)
+               int W, int H, InputManager& inManager, Collisions& collis)
                : Character(X, Y, resManager, W, H), _inManager(inManager), _collis(collis)
 {
     _view.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));

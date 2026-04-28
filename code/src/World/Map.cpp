@@ -10,6 +10,13 @@ Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& r
     parseTMX();
 }
 
+void Map::updateMap(float time)
+{
+    for(size_t i = 0; i < _npcs.size(); i++) {
+        _npcs[i]->update(time);
+    }
+}
+
 void Map::updateMap(std::string mapTileName)
 {
     _tilesetTexture = &_resManager.getLevelTexture(mapTileName);
@@ -98,6 +105,13 @@ void Map::drawFringeLatyer(sf::RenderWindow& window)
         
             }
         }
+    }
+}
+
+void Map::drawNPC(sf::RenderWindow& window)
+{
+    for(size_t i = 0; i < _npcs.size(); i++) {
+        _npcs[i]->drawEntity(window);
     }
 }
 

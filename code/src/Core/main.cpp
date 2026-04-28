@@ -17,7 +17,6 @@ int main() {
     const int MAP_HEIGHT = 30;
     ResourceManager resourceMn;
     InputManager inputMn;
-    std::vector<std::shared_ptr<Character>> characters;
     resourceMn.loadResource(IdnLocation::CASTLE);
     Map map("trone_tiles", MAP_WIDTH, MAP_HEIGHT, TILE_SIZE, resourceMn);
     Collisions collis(map);
@@ -27,10 +26,10 @@ int main() {
     
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
 
-	Player p(310, 360, resourceMn, 16, 16, inputMn, collis);
-    characters.push_back(std::make_shared<Player>(p));
-    Npc npc(310, 200, resourceMn, 16, 16, collis);
-    characters.push_back(std::make_shared<Npc>(npc));
+	Player p(310, 360, resourceMn, 13, 16, inputMn, collis);
+
+    Npc npc("npc", 310, 200, resourceMn, 13, 16, collis);
+    map.loadNpc(npc);
     
     
     // Главный игровой цикл
@@ -51,13 +50,13 @@ int main() {
         inputMn.update();
 		p.handleInput(time, currentFrame);
 		p.update(time);
-        npc.update(time);
+        map.updateMap(time);
 		window.setView(p.getView());
         
         map.drawFloorLatyer(window);
         map.drawWallsLatyer(window);
         p.drawEntity(window);
-        npc.drawEntity(window);
+        map.drawNPC(window);
         map.drawFringeLatyer(window);
         
         window.display();

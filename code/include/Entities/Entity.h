@@ -37,8 +37,10 @@ public:
     /*! \param X координата x*/
     /*! \param Y координата y*/
     /*! \param resManager ссылка на ресурсы*/
-    Entity(float X, float Y, ResourceManager& resManager) :
-        _coord{X, Y}, _resManager(resManager) {}
+    /*! \param W ширина персонажа*/
+    /*! \param H высота персонажа*/
+    Entity(float X, float Y, ResourceManager& resManager, int W, int H) :
+        _coord{X, Y}, _resManager(resManager), _w(W), _h(H) {}
     /*! \brief Виртуальная функция деструктора*/
     virtual ~Entity() = default;
 
@@ -60,6 +62,8 @@ protected:
     Coordinates _coord;
     /*! \brief спрайт класса*/
     sf::Sprite _sprite;
+    /*! \brief Ширина и высота спрайта персонажа*/
+    int _w, _h; 
 
     /*! \brief Виртуальная функция установки спрайта*/
     virtual void setupSprite() = 0;

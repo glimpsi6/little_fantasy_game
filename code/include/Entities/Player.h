@@ -10,7 +10,7 @@ class Player : public Character
 {
 public:
     Player(float X, float Y, ResourceManager& resManager, 
-           float W, float H, InputManager& inManager, Collisions& collis);
+           int W, int H, InputManager& inManager, Collisions& collis);
     ~Player() override = default;
 
     void update(float time) override;

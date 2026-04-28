@@ -46,8 +46,8 @@ public:
     /*! \param resManager ссылка на ресурсы*/
     /*! \param W ширина персонажа*/
     /*! \param H высота персонажа*/
-    Character(float X, float Y, ResourceManager& resManager, float W, float H) :
-        Entity(X, Y, resManager), _w(W), _h(H), 
+    Character(float X, float Y, ResourceManager& resManager, int W, int H) :
+        Entity(X, Y, resManager, W, H), 
         _mD{0, 0, 0, Direction::RIGHT} {};
     /*! \brief Виртуальная функция деструктора*/
     virtual ~Character() = default;
@@ -72,8 +72,6 @@ public:
     /*! \brief Функция получения высоты персонажа*/
     float getHeight() { return _h; }
 protected:
-    /*! \brief Ширина и высота спрайта персонажа*/
-    float _w, _h; 
     /*! \brief Контекст перемещения персонажа*/
     movingData _mD;
 };
