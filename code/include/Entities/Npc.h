@@ -13,13 +13,11 @@ public:
     Npc(std::string npcName, float X, float Y, ResourceManager& resManager, int W, int H, Collisions& collis);
     virtual ~Npc() = default;
 
-    void update(float time) override;
     void reset() override;
-    void setupSprite() override;
-    void setMoving(float x, float y, float time, float& currentFrame); //TODO сюда проверку на коллизии чтобы не стукался
+    void setMoving(float x, float y, float time, float& currentFrame);
 
 protected:
-    Collisions& _collis;
+    void setupSprite() override;
     bool _isMoving;
     std::string _npcName;
 };

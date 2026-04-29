@@ -1,29 +1,11 @@
 #include "Entities/Player.h"
 
 Player::Player(float X, float Y, ResourceManager& resManager, 
-               int W, int H, InputManager& inManager, Collisions& collis)
-               : Character(X, Y, resManager, W, H), _inManager(inManager), _collis(collis)
+               int W, int H, Collisions& collis, InputManager& inManager)
+               : Character(X, Y, resManager, W, H, collis), _inManager(inManager)
 {
     _view.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
     setupSprite();
-}
-
-void Player::update(float time)
-{
-    switch (_mD.direct)
-    {
-    case Direction::RIGHT: _mD.dx = _mD.speed;    _mD.dy = 0;        break;//по иксу задаем положительную скорость, по игреку зануляем. получаем, что персонаж идет только вправо
-    case Direction::LEFT:  _mD.dx = -_mD.speed;   _mD.dy = 0;        break;//по иксу задаем отрицательную скорость, по игреку зануляем. получается, что персонаж идет только влево
-    case Direction::DOWN:  _mD.dx = 0;         _mD.dy = _mD.speed;   break;//по иксу задаем нулевое значение, по игреку положительное. получается, что персонаж идет только вниз
-    case Direction::UP:    _mD.dx = 0;         _mD.dy = -_mD.speed;  break;//по иксу задаем нулевое значение, по игреку отрицательное. получается, что персонаж идет только вверх
-    }
-
-    _coord.x += _mD.dx * time;// ускорение на время получаем смещение координат и как следствие движение
-    _coord.y += _mD.dy * time;//аналогично по игреку
-
-    _mD.speed = 0;//зануляем скорость, чтобы персонаж остановился
-    _collis.interactionWithMap(_coord, _mD, _w, _h);
-    _sprite.setPosition(_coord.x, _coord.y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
 }
 
 void Player::reset()

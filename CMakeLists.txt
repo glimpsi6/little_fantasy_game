@@ -33,6 +33,7 @@ set(SOURCES
     code/src/Core/InputManager.cpp
     code/src/Core/ResourceManager.cpp
     code/src/Core/Game.cpp
+    code/src/Entities/Character.cpp
     code/src/Entities/Player.cpp
     code/src/Entities/Npc.cpp
     code/src/World/Map.cpp

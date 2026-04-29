@@ -1,4 +1,5 @@
 #include "World/Map.h"
+#include "Entities/Character.h"
 
 Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager) :
     _w(W), _h(H), _tileSize(tileSize), _resManager(resManager),
@@ -10,10 +11,10 @@ Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& r
     parseTMX();
 }
 
-void Map::updateMap(float time)
+void Map::update(float time)
 {
-    for(size_t i = 0; i < _npcs.size(); i++) {
-        _npcs[i]->update(time);
+    for(size_t i = 0; i < _characters.size(); i++) {
+        _characters[i]->update(time);
     }
 }
 
@@ -108,10 +109,10 @@ void Map::drawFringeLatyer(sf::RenderWindow& window)
     }
 }
 
-void Map::drawNPC(sf::RenderWindow& window)
+void Map::drawCharacters(sf::RenderWindow& window)
 {
-    for(size_t i = 0; i < _npcs.size(); i++) {
-        _npcs[i]->drawEntity(window);
+    for(size_t i = 0; i < _characters.size(); i++) {
+        _characters[i]->drawEntity(window);
     }
 }
 

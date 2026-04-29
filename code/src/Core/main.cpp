@@ -26,10 +26,11 @@ int main() {
     
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
 
-	Player p(310, 360, resourceMn, 13, 16, inputMn, collis);
+	auto p = std::make_shared<Player>(310, 360, resourceMn, 13, 16, collis, inputMn);
+    map.addCharacter(p);
 
-    Npc npc("npc", 310, 200, resourceMn, 13, 16, collis);
-    map.loadNpc(npc);
+    auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMn, 13, 16, collis);
+    map.addCharacter(npc);
     
     
     // Главный игровой цикл
@@ -48,15 +49,13 @@ int main() {
         window.clear(sf::Color::Black);
 
         inputMn.update();
-		p.handleInput(time, currentFrame);
-		p.update(time);
-        map.updateMap(time);
-		window.setView(p.getView());
+		p->handleInput(time, currentFrame);
+        map.update(time);
+		window.setView(p->getView());
         
         map.drawFloorLatyer(window);
         map.drawWallsLatyer(window);
-        p.drawEntity(window);
-        map.drawNPC(window);
+        map.drawCharacters(window);
         map.drawFringeLatyer(window);
         
         window.display();

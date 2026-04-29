@@ -1,13 +1,16 @@
 #ifndef COLLISIONS_H
 #define COLLISIONS_H
 #include "World/Map.h"
-#include "Entities/Character.h"
+
+class Character;
+struct movingData;
+struct Coordinates;
 
 class Collisions
 {
 public:
     Collisions(Map& map) : _map(map) {}
-    void interactionWithMap(Coordinates& coord, movingData& mD, int w, int h);
+    void interactionWithMap(Character& character, Coordinates& coord, movingData& mD);
     void setCharacters(std::vector<std::shared_ptr<Character>>& characters);
 private:
     Map& _map;

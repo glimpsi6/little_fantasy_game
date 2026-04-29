@@ -1,45 +1,48 @@
 #include "World/Collisions.h"
+#include "Entities/Character.h"
 
-void Collisions::interactionWithMap(Coordinates &coord, movingData &mD, int w, int h)
+void Collisions::interactionWithMap(Character& character, Coordinates &coord, movingData &mD)
 {
-    for (int i = coord.y / TILE_SIZE; i < (coord.y + h) / TILE_SIZE; i++)
+    for (int i = coord.y / TILE_SIZE; i < (coord.y + character.getHeight()) / TILE_SIZE; i++)
     {
-        for (int j = coord.x / TILE_SIZE; j < (coord.x + w) / TILE_SIZE; j++)
+        for (int j = coord.x / TILE_SIZE; j < (coord.x + character.getWidth()) / TILE_SIZE; j++)
         {
             int tileId = _map.getWallsLayer()[i][j];
             if (tileId != 0)
             {
                 if (mD.dy > 0)
-                    coord.y = i * TILE_SIZE - h; // столкновение снизу
+                    coord.y = i * TILE_SIZE - character.getHeight(); // столкновение снизу
                 if (mD.dy < 0)
                     coord.y = i * TILE_SIZE + TILE_SIZE; // сверху
                 if (mD.dx > 0)
-                    coord.x = j * TILE_SIZE - w; // справа
+                    coord.x = j * TILE_SIZE - character.getWidth(); // справа
                 if (mD.dx < 0)
                     coord.x = j * TILE_SIZE + TILE_SIZE; // слева
             }
         }
     }
 
-    for (size_t i = 0; i < _map.getNpcs().size(); i++)
+    for (size_t i = 0; i < _map.getCharacters().size(); i++)
     {
-        Coordinates npcCoord = _map.getNpcs()[i]->getCoord();
-        int npcH = _map.getNpcs()[i]->getHeight();
-        int npcW = _map.getNpcs()[i]->getWidth();
+        if(&character == _map.getCharacters()[i].get()) continue;
+
+        Coordinates npcCoord = _map.getCharacters()[i]->getCoord();
+        int npcH = _map.getCharacters()[i]->getHeight();
+        int npcW = _map.getCharacters()[i]->getWidth();
         
         // Проверяем пересечение
-        bool overlapX = (coord.x < npcCoord.x + npcW) && (coord.x + w > npcCoord.x);
-        bool overlapY = (coord.y < npcCoord.y + npcH) && (coord.y + h > npcCoord.y);
+        bool overlapX = (coord.x < npcCoord.x + npcW) && (coord.x + character.getWidth() > npcCoord.x);
+        bool overlapY = (coord.y < npcCoord.y + npcH) && (coord.y + character.getHeight() > npcCoord.y);
         
         if (overlapX && overlapY)
         {
             // Выталкиваем в зависимости от направления движения
             if (mD.dy > 0)
-                coord.y = npcCoord.y - h;
+                coord.y = npcCoord.y - character.getHeight();
             if (mD.dy < 0)
                 coord.y = npcCoord.y + npcH;
             if (mD.dx > 0)
-                coord.x = npcCoord.x - w;
+                coord.x = npcCoord.x - character.getWidth();
             if (mD.dx < 0)
                 coord.x = npcCoord.x + npcW;
         }
