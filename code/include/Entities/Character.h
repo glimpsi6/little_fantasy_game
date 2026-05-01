@@ -54,7 +54,7 @@ public:
     virtual ~Character() = default;
     /*! \brief Функция обновления параметров класса*/
     /*! \param time время обновления кадра*/
-    virtual void update(float time) override;
+    void update(float time) override;
     /*! \brief Функция сбрасывания параметров класса*/
     void reset() override = 0;
     /*! \brief Функция установки спрайта*/

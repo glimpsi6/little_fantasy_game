@@ -54,7 +54,6 @@ int main() {
         map.drawFloorLayer(window);
         map.drawWallsLayer(window);
         map.drawEntities(window);
-        map.drawEntityLayer(window);
         map.drawFringeLayer(window);
 
         window.display();

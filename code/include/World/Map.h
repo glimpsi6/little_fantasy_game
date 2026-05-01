@@ -15,12 +15,10 @@ public:
 
     void drawFloorLayer(sf::RenderWindow& window);
     void drawWallsLayer(sf::RenderWindow& window);
-    void drawEntityLayer(sf::RenderWindow& window);
     void drawFringeLayer(sf::RenderWindow& window);
     void drawEntities(sf::RenderWindow& window);
     const std::vector<std::vector<int>>& getFloorLayer() const { return _floorLayer; }
     const std::vector<std::vector<int>>& getWallsLayer() const { return _wallsLayer; }
-    const std::vector<std::vector<int>>& getEntityLayer() const { return _entityLayer; }
     const std::vector<std::vector<int>>& getFringeLayer() const { return _fringeLayer; }
     const std::vector<std::shared_ptr<Entity>>& getEntities() const { return _entities; }
     void addEntity(std::shared_ptr<Entity> entity) { _entities.push_back(entity); }
@@ -28,7 +26,6 @@ public:
 private:
     std::vector<std::vector<int>> _floorLayer;
     std::vector<std::vector<int>> _wallsLayer;
-    std::vector<std::vector<int>> _entityLayer;
     std::vector<std::vector<int>> _fringeLayer;
     std::vector<std::shared_ptr<Entity>> _entities;
     ResourceManager& _resManager;

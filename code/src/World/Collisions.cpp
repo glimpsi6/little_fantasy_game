@@ -8,8 +8,7 @@ void Collisions::interactionWithMap(Character& character, Coordinates &coord, mo
         for (int j = coord.x / TILE_SIZE; j < (coord.x + character.getWidth()) / TILE_SIZE; j++)
         {
             int mapTileId = _map.getWallsLayer()[i][j];
-            int entityTileId = _map.getEntityLayer()[i][j];
-            if (mapTileId != 0 || entityTileId != 0)
+            if (mapTileId != 0)
             {
                 if (mD.dy > 0)
                     coord.y = i * TILE_SIZE - character.getHeight(); // столкновение снизу
@@ -54,21 +53,4 @@ void Collisions::interactionWithMap(Character& character, Coordinates &coord, mo
 void Collisions::setCharacters(std::vector<std::shared_ptr<Character>> &characters)
 {
     _characters = &characters;
-}
-
-void Collisions::func(Character& character, Coordinates &_coord)
-{
-    for (int i = _coord.y / TILE_SIZE; i < (_coord.y + character.getHeight()) / TILE_SIZE; i++)
-    {
-        for (int j = _coord.x / TILE_SIZE; j < (_coord.x + character.getWidth()) / TILE_SIZE; j++)
-        {
-            int entityTileId = _map.getEntityLayer()[i][j];
-            if (entityTileId != 0) {  // есть объект
-                // _showInteractionIcon = true;
-                printf("%d\n", entityTileId);
-            } else {
-                // _showInteractionIcon = false;
-            }
-        }
-    }
 }

@@ -76,32 +76,6 @@ void Map::drawWallsLayer(sf::RenderWindow& window)
             }
         }
     }
-} 
-
-void Map::drawEntityLayer(sf::RenderWindow& window)
-{
-    for (int y = 0; y < _h; y++) {
-        for (int x = 0; x < _w; x++) {
-            int tileId = _entityLayer[y][x];
-            if (tileId > 0) {
-                // Обработка флагов
-                tileId--;
-
-                int tileXInTileset = (tileId % _tilesetColumns) * _tileSize;
-                int tileYInTileset = (tileId / _tilesetColumns) * _tileSize;
-                
-                sf::Sprite tileSprite(*_tilesetTexture);
-                tileSprite.setTextureRect(sf::IntRect(tileXInTileset, tileYInTileset, _tileSize, _tileSize));
-                
-                float posX = x * _tileSize;
-                float posY = y * _tileSize;
-                tileSprite.setPosition(posX, posY);
-
-                window.draw(tileSprite);
-        
-            }
-        }
-    }
 }
 
 void Map::drawFringeLayer(sf::RenderWindow& window)
@@ -175,7 +149,7 @@ void Map::parseTMX() //todo поменять местами objects и entities,
     
     std::string line;
     
-    int currentLayer = -1; // -1 = не в слое, 0 = floor, 1 = walls, 2 = objects, 3 = entities
+    int currentLayer = -1;
     
     // Парсим TMX построчно
     while (std::getline(tmxFile, line)) {
@@ -189,12 +163,8 @@ void Map::parseTMX() //todo поменять местами objects и entities,
             _wallsLayer.resize(_h, std::vector<int>(_w, 0));
         }
         else if (line.find("<layer id=\"3\"") != std::string::npos) {
-            currentLayer = 2; // objects
+            currentLayer = 2; // fringes
             _fringeLayer.resize(_h, std::vector<int>(_w, 0));
-        }
-        else if (line.find("<layer id=\"4\"") != std::string::npos) {
-            currentLayer = 3; // entities
-            _entityLayer.resize(_h, std::vector<int>(_w, 0));
         }
         // Ищем данные слоя
         else if (currentLayer >= 0 && line.find("<data encoding=\"csv\">") != std::string::npos) {
@@ -212,9 +182,6 @@ void Map::parseTMX() //todo поменять местами objects и entities,
                     }
                     else if (currentLayer == 2) {
                         _fringeLayer[row] = rowData;
-                    }
-                    else if (currentLayer == 3) {
-                        _entityLayer[row] = rowData;
                     }
                     row++;
                 }
