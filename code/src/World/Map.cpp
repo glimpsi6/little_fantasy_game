@@ -139,7 +139,7 @@ std::vector<int> Map::parseCSV(const std::string& csvLine)
     return result;
 }
 
-void Map::parseTMX() //todo поменять местами objects и entities, objects заменить на fringes
+void Map::parseTMX()
 {
     // Читаем TMX файл
     std::ifstream tmxFile(_resManager.getLevelMap("trone_map")); 

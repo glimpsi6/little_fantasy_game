@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include "Entities/Player.h"
 #include "Entities/Npc.h"
+#include "Entities/Object.h"
 #include "Core/Game.h"
 #include "World/Map.h"
 #include "World/Collisions.h"
@@ -31,6 +32,9 @@ int main() {
 
     auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMn, 13, 16, collis);
     map.addEntity(npc);
+
+    auto chest = std::make_shared<Object>("chest_mini", 312, 300, resourceMn, 16, 16);
+    map.addEntity(chest);
 
     // Главный игровой цикл
     while (window.isOpen()) {

@@ -23,6 +23,7 @@ set(HEADERS
     code/include/Entities/Entity.h
     code/include/Entities/Character.h
     code/include/Entities/Player.h
+    code/include/Entities/Object.h
     code/include/Entities/Npc.h
     code/include/World/Map.h
     code/include/World/Collisions.h
@@ -35,6 +36,7 @@ set(SOURCES
     code/src/Core/Game.cpp
     code/src/Entities/Character.cpp
     code/src/Entities/Player.cpp
+    code/src/Entities/Object.cpp
     code/src/Entities/Npc.cpp
     code/src/World/Map.cpp
     code/src/World/Collisions.cpp
