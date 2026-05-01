@@ -37,8 +37,8 @@ public:
     /*! \param X координата x*/
     /*! \param Y координата y*/
     /*! \param resManager ссылка на ресурсы*/
-    /*! \param W ширина персонажа*/
-    /*! \param H высота персонажа*/
+    /*! \param W ширина сущности*/
+    /*! \param H высота сущности*/
     Entity(float X, float Y, ResourceManager& resManager, int W, int H) :
         _coord{X, Y}, _resManager(resManager), _w(W), _h(H) {}
     /*! \brief Виртуальная функция деструктора*/
@@ -54,7 +54,10 @@ public:
     void drawEntity(sf::RenderWindow& window) { window.draw(_sprite); }
     /*! \brief Функция получения координатов объекта класса*/
     Coordinates getCoord() { return _coord; }
-
+        /*! \brief Функция получения ширины сущности*/
+    float getWidth() { return _w; }
+    /*! \brief Функция получения высоты сущности*/
+    float getHeight() { return _h; }
 protected:
     /*! \brief ссылка на ресурсы класса*/
     ResourceManager& _resManager;
@@ -72,3 +75,6 @@ protected:
 /*---------------------------------------------------------------------------------------*/
 
 #endif // ENTITY_H
+
+
+//todo делаю новый класс объекты для взаимодействия

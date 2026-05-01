@@ -1,5 +1,5 @@
 #include "World/Map.h"
-#include "Entities/Character.h"
+#include "Entities/Entity.h"
 
 Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager) :
     _w(W), _h(H), _tileSize(tileSize), _resManager(resManager),
@@ -13,8 +13,8 @@ Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& r
 
 void Map::update(float time)
 {
-    for(size_t i = 0; i < _characters.size(); i++) {
-        _characters[i]->update(time);
+    for(size_t i = 0; i < _entities.size(); i++) {
+        _entities[i]->update(time);
     }
 }
 
@@ -25,7 +25,7 @@ void Map::updateMap(std::string mapTileName)
     _tilesetRows = (*_tilesetTexture).getSize().y / _tileSize;
 }
 
-void Map::drawFloorLatyer(sf::RenderWindow& window)
+void Map::drawFloorLayer(sf::RenderWindow& window)
 {
     for (int y = 0; y < _h; y++) {
         for (int x = 0; x < _w; x++) {
@@ -52,7 +52,7 @@ void Map::drawFloorLatyer(sf::RenderWindow& window)
     }
 }
 
-void Map::drawWallsLatyer(sf::RenderWindow& window) 
+void Map::drawWallsLayer(sf::RenderWindow& window) 
 {
     for (int y = 0; y < _h; y++) {
         for (int x = 0; x < _w; x++) {
@@ -78,12 +78,33 @@ void Map::drawWallsLatyer(sf::RenderWindow& window)
     }
 } 
 
-void Map::drawEntityLatyer(sf::RenderWindow& window)
+void Map::drawEntityLayer(sf::RenderWindow& window)
 {
+    for (int y = 0; y < _h; y++) {
+        for (int x = 0; x < _w; x++) {
+            int tileId = _entityLayer[y][x];
+            if (tileId > 0) {
+                // Обработка флагов
+                tileId--;
 
+                int tileXInTileset = (tileId % _tilesetColumns) * _tileSize;
+                int tileYInTileset = (tileId / _tilesetColumns) * _tileSize;
+                
+                sf::Sprite tileSprite(*_tilesetTexture);
+                tileSprite.setTextureRect(sf::IntRect(tileXInTileset, tileYInTileset, _tileSize, _tileSize));
+                
+                float posX = x * _tileSize;
+                float posY = y * _tileSize;
+                tileSprite.setPosition(posX, posY);
+
+                window.draw(tileSprite);
+        
+            }
+        }
+    }
 }
 
-void Map::drawFringeLatyer(sf::RenderWindow& window)
+void Map::drawFringeLayer(sf::RenderWindow& window)
 {
     for (int y = 0; y < _h; y++) {
         for (int x = 0; x < _w; x++) {
@@ -109,10 +130,10 @@ void Map::drawFringeLatyer(sf::RenderWindow& window)
     }
 }
 
-void Map::drawCharacters(sf::RenderWindow& window)
+void Map::drawEntities(sf::RenderWindow& window)
 {
-    for(size_t i = 0; i < _characters.size(); i++) {
-        _characters[i]->drawEntity(window);
+    for(size_t i = 0; i < _entities.size(); i++) {
+        _entities[i]->drawEntity(window);
     }
 }
 
@@ -144,7 +165,7 @@ std::vector<int> Map::parseCSV(const std::string& csvLine)
     return result;
 }
 
-void Map::parseTMX()
+void Map::parseTMX() //todo поменять местами objects и entities, objects заменить на fringes
 {
     // Читаем TMX файл
     std::ifstream tmxFile(_resManager.getLevelMap("trone_map")); 
@@ -154,7 +175,7 @@ void Map::parseTMX()
     
     std::string line;
     
-    int currentLayer = -1; // -1 = не в слое, 0 = floor, 1 = walls, 2 = objects
+    int currentLayer = -1; // -1 = не в слое, 0 = floor, 1 = walls, 2 = objects, 3 = entities
     
     // Парсим TMX построчно
     while (std::getline(tmxFile, line)) {
@@ -170,6 +191,10 @@ void Map::parseTMX()
         else if (line.find("<layer id=\"3\"") != std::string::npos) {
             currentLayer = 2; // objects
             _fringeLayer.resize(_h, std::vector<int>(_w, 0));
+        }
+        else if (line.find("<layer id=\"4\"") != std::string::npos) {
+            currentLayer = 3; // entities
+            _entityLayer.resize(_h, std::vector<int>(_w, 0));
         }
         // Ищем данные слоя
         else if (currentLayer >= 0 && line.find("<data encoding=\"csv\">") != std::string::npos) {
@@ -187,6 +212,9 @@ void Map::parseTMX()
                     }
                     else if (currentLayer == 2) {
                         _fringeLayer[row] = rowData;
+                    }
+                    else if (currentLayer == 3) {
+                        _entityLayer[row] = rowData;
                     }
                     row++;
                 }

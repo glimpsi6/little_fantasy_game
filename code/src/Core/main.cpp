@@ -24,18 +24,16 @@ int main() {
     float currentFrame = 0; //хранит текущий кадр
 	sf::Clock clock;
     
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Little fantasy game");
 
 	auto p = std::make_shared<Player>(310, 360, resourceMn, 13, 16, collis, inputMn);
-    map.addCharacter(p);
+    map.addEntity(p);
 
     auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMn, 13, 16, collis);
-    map.addCharacter(npc);
-    
-    
+    map.addEntity(npc);
+
     // Главный игровой цикл
     while (window.isOpen()) {
-
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 		time = time / 800;
@@ -53,11 +51,12 @@ int main() {
         map.update(time);
 		window.setView(p->getView());
         
-        map.drawFloorLatyer(window);
-        map.drawWallsLatyer(window);
-        map.drawCharacters(window);
-        map.drawFringeLatyer(window);
-        
+        map.drawFloorLayer(window);
+        map.drawWallsLayer(window);
+        map.drawEntities(window);
+        map.drawEntityLayer(window);
+        map.drawFringeLayer(window);
+
         window.display();
     }
     

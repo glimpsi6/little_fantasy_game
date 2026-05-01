@@ -16,7 +16,7 @@ void Npc::reset()
 void Npc::setupSprite()
 {
     _sprite.setTexture(_resManager.getLevelTexture(_npcName));
-    _sprite.setTextureRect(sf::IntRect(0, 0, _w, _h));
+    _sprite.setTextureRect(sf::IntRect(0, 64, _w, _h));
 }
 
 void Npc::setMoving(float x, float y, float time, float& currentFrame)

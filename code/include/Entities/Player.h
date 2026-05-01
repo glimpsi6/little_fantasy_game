@@ -11,6 +11,9 @@ public:
     Player(float X, float Y, ResourceManager& resManager, 
            int W, int H, Collisions& collis, InputManager& inManager);
     ~Player() override = default;
+    /*! \brief Функция обновления параметров класса*/
+    /*! \param time время обновления кадра*/
+    void update(float time) override;
     void reset() override;
     void handleInput(float time, float& currentFrame);
     const sf::View& getView() const { return _view; }

@@ -54,7 +54,7 @@ public:
     virtual ~Character() = default;
     /*! \brief Функция обновления параметров класса*/
     /*! \param time время обновления кадра*/
-    void update(float time) override;
+    virtual void update(float time) override;
     /*! \brief Функция сбрасывания параметров класса*/
     void reset() override = 0;
     /*! \brief Функция установки спрайта*/
@@ -65,10 +65,6 @@ public:
     /*! \brief Функция установления направления*/
     /*! \param d направление*/
     void setDirection(enum Direction d) { _mD.direct = d; }
-    /*! \brief Функция получения ширины персонажа*/
-    float getWidth() { return _w; }
-    /*! \brief Функция получения высоты персонажа*/
-    float getHeight() { return _h; }
 protected:
     /*! \brief Контекст перемещения персонажа*/
     movingData _mD;
