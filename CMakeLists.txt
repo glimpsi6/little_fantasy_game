@@ -20,6 +20,7 @@ set(HEADERS
     code/include/Core/GameStateManager.h
     code/include/Core/InputManager.h
     code/include/Core/ResourceManager.h
+    code/include/Core/Interface.h
     code/include/Entities/Entity.h
     code/include/Entities/Character.h
     code/include/Entities/Player.h
@@ -34,6 +35,7 @@ set(SOURCES
     code/src/Core/InputManager.cpp
     code/src/Core/ResourceManager.cpp
     code/src/Core/Game.cpp
+    code/src/Core/Interface.cpp
     code/src/Entities/Character.cpp
     code/src/Entities/Player.cpp
     code/src/Entities/Object.cpp

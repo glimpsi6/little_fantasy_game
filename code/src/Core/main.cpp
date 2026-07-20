@@ -36,6 +36,10 @@ int main() {
     auto chest = std::make_shared<Object>("chest_mini", 312, 300, resourceMn, 16, 16);
     map.addEntity(chest);
 
+    sf::Sprite sprite;
+    sprite.setTexture(resourceMn.getGlobalTexture("interface"));
+    sprite.setTextureRect(sf::IntRect(0, 16,  16, 16));
+
     // Главный игровой цикл
     while (window.isOpen()) {
 		float time = clock.getElapsedTime().asMicroseconds();
@@ -59,6 +63,8 @@ int main() {
         map.drawWallsLayer(window);
         map.drawEntities(window);
         map.drawFringeLayer(window);
+        sprite.setPosition(p->getCoord().x, p->getCoord().y - 20);
+        window.draw(sprite);
 
         window.display();
     }
