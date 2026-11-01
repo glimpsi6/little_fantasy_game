@@ -14,10 +14,10 @@
         },
         "trone_map.tmx": {
             "scale": 1.9565,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 337.8481983133146,
-                "y": 235.36928188090977
+                "x": 338.1037567084079,
+                "y": 235.11372348581654
             }
         },
         "trone_tiles.tsx": {

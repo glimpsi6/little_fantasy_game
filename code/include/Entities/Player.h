@@ -20,7 +20,7 @@ public:
 protected:
     InputManager& _inManager;
     sf::View _view;
-
+    
     void setupSprite() override;
     sf::View getPlayerView();
 };

@@ -12,14 +12,15 @@
 #include "Core/Game.h"
 #include "World/Map.h"
 #include "World/Collisions.h"
+#include "Systems/InteractiveIcon.h"
 
 int main() {
     const int MAP_WIDTH = 40;
     const int MAP_HEIGHT = 30;
-    ResourceManager resourceMn;
+    ResourceManager resourceMng;
     InputManager inputMn;
-    resourceMn.loadResource(IdnLocation::CASTLE);
-    Map map("trone_tiles", MAP_WIDTH, MAP_HEIGHT, TILE_SIZE, resourceMn);
+    resourceMng.loadResource(IdnLocation::CASTLE);
+    Map map("trone_tiles", MAP_WIDTH, MAP_HEIGHT, TILE_SIZE, resourceMng);
     Collisions collis(map);
     
     float currentFrame = 0; //хранит текущий кадр
@@ -27,18 +28,16 @@ int main() {
     
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Little fantasy game");
 
-	auto p = std::make_shared<Player>(310, 360, resourceMn, 13, 16, collis, inputMn);
+	auto p = std::make_shared<Player>(310, 360, resourceMng, 13, 16, collis, inputMn);
     map.addEntity(p);
 
-    auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMn, 13, 16, collis);
+    auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMng, 13, 16, collis);
     map.addEntity(npc);
 
-    auto chest = std::make_shared<Object>("chest_mini", 312, 300, resourceMn, 16, 16);
-    map.addEntity(chest);
+    // auto chest = std::make_shared<Object>("chest_mini", 312, 300, resourceMng, 16, 16);
+    // map.addEntity(chest);
 
-    sf::Sprite sprite;
-    sprite.setTexture(resourceMn.getGlobalTexture("interface"));
-    sprite.setTextureRect(sf::IntRect(0, 16,  16, 16));
+    // InteractiveIcon eIcon(resourceMng);
 
     // Главный игровой цикл
     while (window.isOpen()) {
@@ -63,13 +62,15 @@ int main() {
         map.drawWallsLayer(window);
         map.drawEntities(window);
         map.drawFringeLayer(window);
-        sprite.setPosition(p->getCoord().x, p->getCoord().y - 20);
-        window.draw(sprite);
+
+        // eIcon.setInteractiveZone(true);
+        // eIcon.setPosition(p->getCoord());
+        // eIcon.drawInterface(window);
 
         window.display();
     }
     
-    resourceMn.unloadResource();
+    resourceMng.unloadResource();
 
     return 0;
 }

@@ -20,7 +20,6 @@ set(HEADERS
     code/include/Core/GameStateManager.h
     code/include/Core/InputManager.h
     code/include/Core/ResourceManager.h
-    code/include/Core/Interface.h
     code/include/Entities/Entity.h
     code/include/Entities/Character.h
     code/include/Entities/Player.h
@@ -28,6 +27,8 @@ set(HEADERS
     code/include/Entities/Npc.h
     code/include/World/Map.h
     code/include/World/Collisions.h
+    code/include/Systems/UIElement.h
+    code/include/Systems/InteractiveIcon.h
 )
 
 set(SOURCES
@@ -35,13 +36,13 @@ set(SOURCES
     code/src/Core/InputManager.cpp
     code/src/Core/ResourceManager.cpp
     code/src/Core/Game.cpp
-    code/src/Core/Interface.cpp
     code/src/Entities/Character.cpp
     code/src/Entities/Player.cpp
     code/src/Entities/Object.cpp
     code/src/Entities/Npc.cpp
     code/src/World/Map.cpp
     code/src/World/Collisions.cpp
+    code/src/Systems/InteractiveIcon.cpp
 )
 
 add_executable(game ${SOURCES} ${HEADERS})

@@ -47,7 +47,6 @@ void Collisions::interactionWithMap(Character& character, Coordinates &coord, mo
                 coord.x = npcCoord.x + npcW;
         }
     }
-
 }
 
 void Collisions::setCharacters(std::vector<std::shared_ptr<Character>> &characters)

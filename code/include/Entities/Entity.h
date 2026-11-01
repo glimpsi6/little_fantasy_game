@@ -41,21 +41,25 @@ public:
     /*! \param H высота сущности*/
     Entity(float X, float Y, ResourceManager& resManager, int W, int H) :
         _coord{X, Y}, _resManager(resManager), _w(W), _h(H) {}
-    /*! \brief Виртуальная функция деструктора*/
     virtual ~Entity() = default;
 
     /*! \brief Виртуальная функция обновления параметров класса*/
     /*! \param time время обновления кадра*/
     virtual void update(float time) = 0;
+
     /*! \brief Виртуальная функция сбрасывания параметров класса*/
     virtual void reset() = 0;
+
     /*! \brief Функция отрисовки спрайта объекта*/
     /*! \param window окно вывода*/
     void drawEntity(sf::RenderWindow& window) { window.draw(_sprite); }
+
     /*! \brief Функция получения координатов объекта класса*/
     Coordinates getCoord() { return _coord; }
-        /*! \brief Функция получения ширины сущности*/
+
+    /*! \brief Функция получения ширины сущности*/
     float getWidth() { return _w; }
+    
     /*! \brief Функция получения высоты сущности*/
     float getHeight() { return _h; }
 protected:
