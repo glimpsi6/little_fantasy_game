@@ -1,8 +1,8 @@
 #include "Entities/Player.h"
 
 Player::Player(float X, float Y, ResourceManager& resManager, 
-               int W, int H, Collisions& collis, InputManager& inManager)
-               : Character(X, Y, resManager, W, H, collis), _inManager(inManager)
+               int W, int H, InputManager& inputMng, Collisions& collis)
+               : Character(X, Y, resManager, W, H, inputMng, collis)
 {
     _view.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
     setupSprite();
@@ -18,7 +18,7 @@ void Player::reset()
 
 void Player::handleInput(float time, float& currentFrame)
 {
-    if (_inManager.isKeyPressed(sf::Keyboard::Left) || _inManager.isKeyPressed(sf::Keyboard::A)) {
+    if (_inputMng.isKeyPressed(sf::Keyboard::Left) || _inputMng.isKeyPressed(sf::Keyboard::A)) {
         setDirection(Direction::LEFT);
         setSpeed(0.1);
         currentFrame += 0.004*time;
@@ -26,7 +26,7 @@ void Player::handleInput(float time, float& currentFrame)
         _sprite.setTextureRect(sf::IntRect(16 * int(currentFrame), 16, _w, _h));
     }
 
-    if (_inManager.isKeyPressed(sf::Keyboard::Right) || _inManager.isKeyPressed(sf::Keyboard::D)) {
+    if (_inputMng.isKeyPressed(sf::Keyboard::Right) || _inputMng.isKeyPressed(sf::Keyboard::D)) {
         setDirection(Direction::RIGHT);
         setSpeed(0.1);
         currentFrame += 0.004*time;
@@ -34,7 +34,7 @@ void Player::handleInput(float time, float& currentFrame)
         _sprite.setTextureRect(sf::IntRect(16 * int(currentFrame), 32,  _w, _h));
     }
 
-    if (_inManager.isKeyPressed(sf::Keyboard::Up) || _inManager.isKeyPressed(sf::Keyboard::W)) { 
+    if (_inputMng.isKeyPressed(sf::Keyboard::Up) || _inputMng.isKeyPressed(sf::Keyboard::W)) { 
         setDirection(Direction::UP);
         setSpeed(0.1);
         currentFrame += 0.004*time;
@@ -42,7 +42,7 @@ void Player::handleInput(float time, float& currentFrame)
         _sprite.setTextureRect(sf::IntRect(16 * int(currentFrame), 48,  _w, _h));
     }
 
-    if (_inManager.isKeyPressed(sf::Keyboard::Down) ||_inManager.isKeyPressed(sf::Keyboard::S)) {
+    if (_inputMng.isKeyPressed(sf::Keyboard::Down) ||_inputMng.isKeyPressed(sf::Keyboard::S)) {
         setDirection(Direction::DOWN);
         setSpeed(0.1);
         currentFrame += 0.004*time;
@@ -55,7 +55,7 @@ void Player::handleInput(float time, float& currentFrame)
 
 void Player::setupSprite()
 {
-    _sprite.setTexture(_resManager.getGlobalTexture("hero"));
+    _sprite.setTexture(_resMng.getGlobalTexture("hero"));
     _sprite.setTextureRect(sf::IntRect(0, 64, _w, _h));
 } 
 

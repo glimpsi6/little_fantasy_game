@@ -4,13 +4,13 @@
 
 class UIElement{
 public:
-    UIElement(ResourceManager& resManager) : _resManager(resManager) {};
+    UIElement(ResourceManager& resManager) : _resMng(resManager) {};
     virtual ~UIElement() = default;
     virtual void update() = 0;
     virtual void drawInterface(sf::RenderWindow& window) = 0;
 protected:
     /*! \brief ссылка на ресурсы класса*/
-    ResourceManager& _resManager;
+    ResourceManager& _resMng;
 };
 
 #endif // UIELEMENT_H

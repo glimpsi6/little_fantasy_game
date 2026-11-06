@@ -8,7 +8,7 @@
 class Object : public Entity
 {
 public:
-    Object(std::string npcName, float X, float Y, ResourceManager& resManager, int W, int H);
+    Object(std::string npcName, float X, float Y, ResourceManager& resManager, int W, int H, InputManager& inputMng);
     ~Object() = default;
     /*! \brief Функция обновления параметров класса*/
     /*! \param time время обновления кадра*/

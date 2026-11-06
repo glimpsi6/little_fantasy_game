@@ -47,8 +47,8 @@ public:
     /*! \param resManager ссылка на ресурсы*/
     /*! \param W ширина персонажа*/
     /*! \param H высота персонажа*/
-    Character(float X, float Y, ResourceManager& resManager, int W, int H, Collisions& collis) :
-        Entity(X, Y, resManager, W, H), 
+    Character(float X, float Y, ResourceManager& resManager, int W, int H, InputManager& inputMng, Collisions& collis) :
+        Entity(X, Y, resManager, W, H, inputMng), 
         _mD{0, 0, 0, Direction::RIGHT}, _collis(collis) {};
     /*! \brief Виртуальная функция деструктора*/
     virtual ~Character() = default;

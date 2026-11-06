@@ -11,7 +11,8 @@ class Collisions;
 class Npc : public Character
 {
 public:
-    Npc(std::string npcName, float X, float Y, ResourceManager& resManager, int W, int H, Collisions& collis);
+    Npc(std::string npcName, float X, float Y, ResourceManager& resManager, 
+        int W, int H, InputManager& inputMng, Collisions& collis);
     ~Npc() = default;
 
     void reset() override;

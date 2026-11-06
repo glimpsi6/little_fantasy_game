@@ -30,11 +30,11 @@ void Collisions::interactionWithMap(Character& ch, Coordinates& coord)
         int npcH = _map.getEntities()[i]->getHeight();
         int npcW = _map.getEntities()[i]->getWidth();
 
-        if( (ch.getCoord().x - npcCoord.x < radius & npcCoord.x - ch.getCoord().x < radius) &
-            (ch.getCoord().y - npcCoord.y < radius & npcCoord.y - ch.getCoord().y < radius)) {
-            _map.getEntities()[i]->setInteractionIcon(true);
+        if( (ch.getCoord().x - npcCoord.x < radius && npcCoord.x - ch.getCoord().x < radius) &
+            (ch.getCoord().y - npcCoord.y < radius && npcCoord.y - ch.getCoord().y < radius)) {
+            _map.getEntities()[i]->setEIcon(true);
         } else {
-            _map.getEntities()[i]->setInteractionIcon(false);
+            _map.getEntities()[i]->setEIcon(false);
         }
  
         // Проверяем пересечение

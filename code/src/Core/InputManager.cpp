@@ -3,6 +3,7 @@
 /*---------------------------------------------------------------------------------------*/
 
 void InputManager::update() {
+    m_prevKeyStates = m_keyStates;
     // WASD
     m_keyStates[sf::Keyboard::W] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
     m_keyStates[sf::Keyboard::A] = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
@@ -28,6 +29,15 @@ void InputManager::update() {
 bool InputManager::isKeyPressed(sf::Keyboard::Key key) const {
     auto it = m_keyStates.find(key);
     return (it != m_keyStates.end()) ? it->second : false;
+}
+
+/*---------------------------------------------------------------------------------------*/
+
+bool InputManager::isKeyJustPressed(sf::Keyboard::Key key) const {
+    const bool now  = isKeyPressed(key);
+    auto it = m_prevKeyStates.find(key);
+    const bool prev = (it != m_prevKeyStates.end()) ? it->second : false;
+    return now && !prev;
 }
 
 /*---------------------------------------------------------------------------------------*/

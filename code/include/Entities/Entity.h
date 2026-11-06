@@ -3,6 +3,7 @@
 #include "Core/ResourceManager.h"
 #include "Core/Game.h"
 #include "Systems/InteractiveIcon.h"
+#include "Core/InputManager.h"
 
 /*---------------------------------------------------------------------------------------*/
 
@@ -40,8 +41,8 @@ public:
     /*! \param resManager ссылка на ресурсы*/
     /*! \param W ширина сущности*/
     /*! \param H высота сущности*/
-    Entity(float X, float Y, ResourceManager& resManager, int W, int H) :
-        _coord{X, Y}, _resManager(resManager), _w(W), _h(H), _eIcon(_resManager) {}
+    Entity(float X, float Y, ResourceManager& resManager, int W, int H, InputManager& inputMng) :
+        _coord{X, Y}, _resMng(resManager), _w(W), _h(H), _inputMng(inputMng), _eIcon(_resMng) {}
     virtual ~Entity() = default;
 
     /*! \brief Виртуальная функция обновления параметров класса*/
@@ -72,11 +73,13 @@ public:
     /*! \brief Функция получения высоты сущности*/
     float getHeight() { return _h; }
 
-    virtual void setInteractionIcon(bool flag) { _eIcon.setInteractiveZone(flag); }
+    virtual void setEIcon(bool flag) { _eIcon.setInteractiveZone(flag); }
+    // virtual void setAction() = 0;
 
 protected:
     /*! \brief ссылка на ресурсы класса*/
-    ResourceManager& _resManager;
+    ResourceManager& _resMng;
+    InputManager& _inputMng;
     InteractiveIcon _eIcon;
     /*! \brief координаты класса*/
     Coordinates _coord;

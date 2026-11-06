@@ -29,7 +29,7 @@ private:
     std::vector<std::vector<int>> _wallsLayer;
     std::vector<std::vector<int>> _fringeLayer;
     std::vector<std::shared_ptr<Entity>> _entities;
-    ResourceManager& _resManager;
+    ResourceManager& _resMng;
     const sf::Texture* _tilesetTexture;
     
     int _tilesetColumns;

@@ -14,10 +14,12 @@ public:
     /*! \param key значение клавиши*/
     /*! \return true - клавиша нажата, false - клавиша не нажата*/
     bool isKeyPressed(sf::Keyboard::Key key) const;
+    bool isKeyJustPressed(sf::Keyboard::Key key) const;
 
 private:
     /*! \brief Хранилище состояний клавиш*/
     std::unordered_map<sf::Keyboard::Key, bool> m_keyStates;
+    std::unordered_map<sf::Keyboard::Key, bool> m_prevKeyStates;
 };
 
 /*---------------------------------------------------------------------------------------*/

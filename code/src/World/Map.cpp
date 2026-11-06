@@ -2,8 +2,8 @@
 #include "Entities/Entity.h"
 
 Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager) :
-    _w(W), _h(H), _tileSize(tileSize), _resManager(resManager),
-    _tilesetTexture(&_resManager.getLevelTexture(mapTileName))
+    _w(W), _h(H), _tileSize(tileSize), _resMng(resManager),
+    _tilesetTexture(&_resMng.getLevelTexture(mapTileName))
 {
     _tilesetColumns = (*_tilesetTexture).getSize().x / _tileSize;
     _tilesetRows = (*_tilesetTexture).getSize().y / _tileSize;
@@ -21,7 +21,7 @@ void Map::update(float time)
 
 void Map::updateMap(std::string mapTileName)
 {
-    _tilesetTexture = &_resManager.getLevelTexture(mapTileName);
+    _tilesetTexture = &_resMng.getLevelTexture(mapTileName);
     _tilesetColumns = (*_tilesetTexture).getSize().x / _tileSize;
     _tilesetRows = (*_tilesetTexture).getSize().y / _tileSize;
 }
@@ -143,7 +143,7 @@ std::vector<int> Map::parseCSV(const std::string& csvLine)
 void Map::parseTMX()
 {
     // Читаем TMX файл
-    std::ifstream tmxFile(_resManager.getLevelMap("trone_map")); 
+    std::ifstream tmxFile(_resMng.getLevelMap("trone_map")); 
     if (!tmxFile.is_open()) {
         std::cerr << "Не удалось открыть trone_map.tmx!" << std::endl;
     }

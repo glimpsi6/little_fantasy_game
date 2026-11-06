@@ -28,10 +28,10 @@ int main() {
     
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Little fantasy game");
 
-	auto p = std::make_shared<Player>(310, 360, resourceMng, 13, 16, collis, inputMn);
+	auto p = std::make_shared<Player>(310, 360, resourceMng, 13, 16, inputMn, collis);
     map.addEntity(p);
 
-    auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMng, 13, 16, collis);
+    auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMng, 13, 16, inputMn, collis);
     map.addEntity(npc);
 
     // auto chest = std::make_shared<Object>("chest_mini", 312, 300, resourceMng, 16, 16);
