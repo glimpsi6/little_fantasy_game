@@ -1,7 +1,8 @@
 #ifndef INTERACTIVEICON_H
 #define INTERACTIVEICON_H
 #include "Systems/UIElement.h"
-#include "Entities/Entity.h"
+
+struct Coordinates;
 
 class InteractiveIcon : public UIElement
 {

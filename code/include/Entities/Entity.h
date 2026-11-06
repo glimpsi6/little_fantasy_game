@@ -2,6 +2,7 @@
 #define ENTITY_H
 #include "Core/ResourceManager.h"
 #include "Core/Game.h"
+#include "Systems/InteractiveIcon.h"
 
 /*---------------------------------------------------------------------------------------*/
 
@@ -40,7 +41,7 @@ public:
     /*! \param W ширина сущности*/
     /*! \param H высота сущности*/
     Entity(float X, float Y, ResourceManager& resManager, int W, int H) :
-        _coord{X, Y}, _resManager(resManager), _w(W), _h(H) {}
+        _coord{X, Y}, _resManager(resManager), _w(W), _h(H), _eIcon(_resManager) {}
     virtual ~Entity() = default;
 
     /*! \brief Виртуальная функция обновления параметров класса*/
@@ -52,19 +53,31 @@ public:
 
     /*! \brief Функция отрисовки спрайта объекта*/
     /*! \param window окно вывода*/
-    void drawEntity(sf::RenderWindow& window) { window.draw(_sprite); }
+    void drawEntity(sf::RenderWindow& window) { 
+        window.draw(_sprite); 
+        if(_eIcon.getInteractiveZone()) {
+            _eIcon.setPosition(this->getCoord());
+            _eIcon.drawInterface(window);
+        } 
+    }
 
     /*! \brief Функция получения координатов объекта класса*/
     Coordinates getCoord() { return _coord; }
+
+    void setCoord(Coordinates coord) { _coord = coord; }
 
     /*! \brief Функция получения ширины сущности*/
     float getWidth() { return _w; }
     
     /*! \brief Функция получения высоты сущности*/
     float getHeight() { return _h; }
+
+    virtual void setInteractionIcon(bool flag) { _eIcon.setInteractiveZone(flag); }
+
 protected:
     /*! \brief ссылка на ресурсы класса*/
     ResourceManager& _resManager;
+    InteractiveIcon _eIcon;
     /*! \brief координаты класса*/
     Coordinates _coord;
     /*! \brief спрайт класса*/

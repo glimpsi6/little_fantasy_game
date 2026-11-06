@@ -8,6 +8,7 @@ Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& r
     _tilesetColumns = (*_tilesetTexture).getSize().x / _tileSize;
     _tilesetRows = (*_tilesetTexture).getSize().y / _tileSize;
 
+
     parseTMX();
 }
 
@@ -191,4 +192,9 @@ void Map::parseTMX()
     }
     
     tmxFile.close();
+}
+
+void Map::addEntity(std::shared_ptr<Entity> entity) 
+{ 
+    _entities.push_back(entity);
 }

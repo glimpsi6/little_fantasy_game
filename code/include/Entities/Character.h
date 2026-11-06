@@ -62,6 +62,7 @@ public:
     /*! \brief Функция установления скорости*/
     /*! \param s скорость*/
     void setSpeed(float s) { _mD.speed = s; }
+    movingData getSeed() { return _mD; }
     /*! \brief Функция установления направления*/
     /*! \param d направление*/
     void setDirection(enum Direction d) { _mD.direct = d; }

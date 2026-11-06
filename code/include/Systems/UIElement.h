@@ -1,7 +1,6 @@
 #ifndef UIELEMENT_H
 #define UIELEMENT_H
 #include "Core/ResourceManager.h"
-#include "Entities/Entity.h"
 
 class UIElement{
 public:

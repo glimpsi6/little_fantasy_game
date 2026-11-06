@@ -1,22 +1,22 @@
 #include "World/Collisions.h"
 #include "Entities/Character.h"
 
-void Collisions::interactionWithMap(Character& character, Coordinates &coord, movingData &mD)
-{
-    for (int i = coord.y / TILE_SIZE; i < (coord.y + character.getHeight()) / TILE_SIZE; i++)
+void Collisions::interactionWithMap(Character& ch, Coordinates& coord)
+{ 
+    for (int i = ch.getCoord().y / TILE_SIZE; i < (ch.getCoord().y + ch.getHeight()) / TILE_SIZE; i++)
     {
-        for (int j = coord.x / TILE_SIZE; j < (coord.x + character.getWidth()) / TILE_SIZE; j++)
+        for (int j = ch.getCoord().x / TILE_SIZE; j < (ch.getCoord().x + ch.getWidth()) / TILE_SIZE; j++)
         {
             int mapTileId = _map.getWallsLayer()[i][j];
             if (mapTileId != 0)
             {
-                if (mD.dy > 0)
-                    coord.y = i * TILE_SIZE - character.getHeight(); // столкновение снизу
-                if (mD.dy < 0)
+                if (ch.getSeed().dy > 0)
+                    coord.y = i * TILE_SIZE - ch.getHeight(); // столкновение снизу
+                if (ch.getSeed().dy < 0)
                     coord.y = i * TILE_SIZE + TILE_SIZE; // сверху
-                if (mD.dx > 0)
-                    coord.x = j * TILE_SIZE - character.getWidth(); // справа
-                if (mD.dx < 0)
+                if (ch.getSeed().dx > 0)
+                    coord.x = j * TILE_SIZE - ch.getWidth(); // справа
+                if (ch.getSeed().dx < 0)
                     coord.x = j * TILE_SIZE + TILE_SIZE; // слева
             }
         }
@@ -24,32 +24,40 @@ void Collisions::interactionWithMap(Character& character, Coordinates &coord, mo
 
     for (size_t i = 0; i < _map.getEntities().size(); i++)
     {
-        if(&character == _map.getEntities()[i].get()) continue;
+        if(&ch == _map.getEntities()[i].get()) continue;
 
         Coordinates npcCoord = _map.getEntities()[i]->getCoord();
         int npcH = _map.getEntities()[i]->getHeight();
         int npcW = _map.getEntities()[i]->getWidth();
-        
+
+        if( (ch.getCoord().x - npcCoord.x < radius & npcCoord.x - ch.getCoord().x < radius) &
+            (ch.getCoord().y - npcCoord.y < radius & npcCoord.y - ch.getCoord().y < radius)) {
+            _map.getEntities()[i]->setInteractionIcon(true);
+        } else {
+            _map.getEntities()[i]->setInteractionIcon(false);
+        }
+ 
         // Проверяем пересечение
-        bool overlapX = (coord.x < npcCoord.x + npcW) && (coord.x + character.getWidth() > npcCoord.x);
-        bool overlapY = (coord.y < npcCoord.y + npcH) && (coord.y + character.getHeight() > npcCoord.y);
+        bool overlapX = (ch.getCoord().x < npcCoord.x + npcW) && (ch.getCoord().x + ch.getWidth() > npcCoord.x);
+        bool overlapY = (ch.getCoord().y < npcCoord.y + npcH) && (ch.getCoord().y + ch.getHeight() > npcCoord.y);
         
         if (overlapX && overlapY)
         {
             // Выталкиваем в зависимости от направления движения
-            if (mD.dy > 0)
-                coord.y = npcCoord.y - character.getHeight();
-            if (mD.dy < 0)
+            if (ch.getSeed().dy > 0)
+                coord.y = npcCoord.y - ch.getHeight();
+            if (ch.getSeed().dy < 0)
                 coord.y = npcCoord.y + npcH;
-            if (mD.dx > 0)
-                coord.x = npcCoord.x - character.getWidth();
-            if (mD.dx < 0)
+            if (ch.getSeed().dx > 0)
+                coord.x = npcCoord.x - ch.getWidth();
+            if (ch.getSeed().dx < 0)
                 coord.x = npcCoord.x + npcW;
         }
     }
+
 }
 
-void Collisions::setCharacters(std::vector<std::shared_ptr<Character>> &characters)
-{
-    _characters = &characters;
-}
+// void Collisions::setCharacters(std::vector<std::shared_ptr<Character>> &characters)
+// {
+//     _characters = &characters;
+// }

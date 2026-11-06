@@ -10,6 +10,7 @@ class Entity;
 class Map{
 public:
     Map( std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager);
+    ~Map() = default;
     void update(float time);
     void updateMap(std::string mapTileName);
 
@@ -21,7 +22,7 @@ public:
     const std::vector<std::vector<int>>& getWallsLayer() const { return _wallsLayer; }
     const std::vector<std::vector<int>>& getFringeLayer() const { return _fringeLayer; }
     const std::vector<std::shared_ptr<Entity>>& getEntities() const { return _entities; }
-    void addEntity(std::shared_ptr<Entity> entity) { _entities.push_back(entity); }
+    void addEntity(std::shared_ptr<Entity> entity);
     
 private:
     std::vector<std::vector<int>> _floorLayer;
@@ -30,6 +31,7 @@ private:
     std::vector<std::shared_ptr<Entity>> _entities;
     ResourceManager& _resManager;
     const sf::Texture* _tilesetTexture;
+    
     int _tilesetColumns;
     int _tilesetRows; //не использую
     int _w;

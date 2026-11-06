@@ -1,4 +1,5 @@
 #include "Systems/InteractiveIcon.h"
+#include "Entities/Entity.h"
 
 InteractiveIcon::InteractiveIcon(ResourceManager& resManager) : UIElement(resManager), _isInteractiveZone(false)
 {

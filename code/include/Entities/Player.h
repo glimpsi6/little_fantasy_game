@@ -16,6 +16,7 @@ public:
     void reset() override;
     void handleInput(float time, float& currentFrame);
     const sf::View& getView() const { return _view; }
+    void setInteractionIcon(bool flag) override {}
     
 protected:
     InputManager& _inManager;
