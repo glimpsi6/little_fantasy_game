@@ -13,6 +13,7 @@
 #include "World/Map.h"
 #include "World/Collisions.h"
 #include "Systems/InteractiveIcon.h"
+#include "Systems/Frame.h"
 
 int main() {
     const int MAP_WIDTH = 40;
@@ -39,6 +40,8 @@ int main() {
 
     // InteractiveIcon eIcon(resourceMng);
 
+    Frame fr(resourceMng);
+
     // Главный игровой цикл
     while (window.isOpen()) {
 		float time = clock.getElapsedTime().asMicroseconds();
@@ -63,10 +66,14 @@ int main() {
         map.drawEntities(window);
         map.drawFringeLayer(window);
 
+        window.setView(window.getDefaultView()); 
+        fr.drawInterface(window);
+
         // eIcon.setInteractiveZone(true);
         // eIcon.setPosition(p->getCoord());
         // eIcon.drawInterface(window);
 
+        
         window.display();
     }
     

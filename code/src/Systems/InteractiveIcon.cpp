@@ -3,8 +3,8 @@
 
 InteractiveIcon::InteractiveIcon(ResourceManager& resManager) : UIElement(resManager), _isInteractiveZone(false)
 {
-    _sprite.setTexture(_resMng.getGlobalTexture("interface"));
-    _sprite.setTextureRect(sf::IntRect(0, 16,  16, 16));
+    _sprite.setTexture(_resMng.getGlobalTexture("eIcon"));
+    _sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 }
 
 void InteractiveIcon::update()

@@ -24,6 +24,7 @@ set(SOURCES
     code/src/World/Map.cpp
     code/src/World/Collisions.cpp
     code/src/Systems/InteractiveIcon.cpp
+    code/src/Systems/Frame.cpp
 )
 
 add_executable(lfg ${SOURCES})

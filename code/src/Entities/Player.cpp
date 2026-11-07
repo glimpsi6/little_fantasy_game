@@ -4,7 +4,8 @@ Player::Player(float X, float Y, ResourceManager& resManager,
                int W, int H, InputManager& inputMng, Collisions& collis)
                : Character(X, Y, resManager, W, H, inputMng, collis)
 {
-    _view.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    _view.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    _view.setCenter(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
     setupSprite();
 }
 
