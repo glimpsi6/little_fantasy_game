@@ -38,11 +38,11 @@ public:
     /*! \brief Конструктор класса, инициализирует координаты и ресурсы сущности*/
     /*! \param X координата x*/
     /*! \param Y координата y*/
-    /*! \param resManager ссылка на ресурсы*/
+    /*! \param resMng ссылка на ресурсы*/
     /*! \param W ширина сущности*/
     /*! \param H высота сущности*/
-    Entity(float X, float Y, ResourceManager& resManager, int W, int H, InputManager& inputMng) :
-        _coord{X, Y}, _resMng(resManager), _w(W), _h(H), _inputMng(inputMng), _eIcon(_resMng) {}
+    Entity(float X, float Y, ResourceManager& resMng, int W, int H, InputManager& inputMng) :
+        _coord{X, Y}, _resMng(resMng), _w(W), _h(H), _inputMng(inputMng), _eIcon(_resMng) {}
     virtual ~Entity() = default;
 
     /*! \brief Виртуальная функция обновления параметров класса*/

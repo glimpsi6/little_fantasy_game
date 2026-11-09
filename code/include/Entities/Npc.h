@@ -2,6 +2,7 @@
 #define NPC_H
 #include "Entities/Character.h"
 #include "Systems/InteractiveIcon.h"
+#include "Systems/DialogueWindow.h"
 
 class Collisions;
 
@@ -11,17 +12,22 @@ class Collisions;
 class Npc : public Character
 {
 public:
-    Npc(std::string npcName, float X, float Y, ResourceManager& resManager, 
+    Npc(std::string npcName, float X, float Y, ResourceManager& resMng, 
         int W, int H, InputManager& inputMng, Collisions& collis);
     ~Npc() = default;
-
+    void update(float time) override;
     void reset() override;
     void setMoving(float x, float y, float time, float& currentFrame);
+    void drawDialogue(sf::RenderWindow& window) { _dialogue.drawInterface(window); }
+    void updateDialogue() { _dialogue.update(); }
+    bool getDialogueStatus() { return _isDialogue; }
 
-protected:
+private:
     void setupSprite() override;
     bool _isMoving;
     std::string _npcName;
+    DialogueWindow _dialogue;
+    bool _isDialogue;
 };
 
 /*---------------------------------------------------------------------------------------*/

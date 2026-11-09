@@ -1,7 +1,7 @@
 #include "Entities/Object.h"
 
-Object::Object(std::string objectName, float X, float Y, ResourceManager& resManager, int W, int H, InputManager& inputMng) :
-        _objectName(objectName), Entity(X, Y, resManager, W, H, inputMng)
+Object::Object(std::string objectName, float X, float Y, ResourceManager& resMng, int W, int H, InputManager& inputMng) :
+        _objectName(objectName), Entity(X, Y, resMng, W, H, inputMng)
 {
     setupSprite();
 }

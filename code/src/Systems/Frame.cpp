@@ -1,6 +1,6 @@
 #include "Systems/Frame.h"
 
-Frame::Frame(ResourceManager& resManager) : UIElement(resManager)
+Frame::Frame(ResourceManager& resMng) : UIElement(resMng)
 {
     _sprite.setTexture(_resMng.getGlobalTexture("frame"));
     _sprite.setTextureRect(sf::IntRect(0, 0, 640, 480));

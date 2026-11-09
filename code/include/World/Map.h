@@ -9,7 +9,7 @@ class Entity;
 
 class Map{
 public:
-    Map( std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager);
+    Map( std::string mapTileName, int W, int H, int tileSize, ResourceManager& resMng);
     ~Map() = default;
     void update(float time);
     void updateMap(std::string mapTileName);

@@ -37,37 +37,26 @@ struct health
 
 /*---------------------------------------------------------------------------------------*/
 
-/*! \brief Абстрактный класс персонажа, дочерний от класса Entity*/
 class Character : public Entity
 {
 public:
     /*! \brief Конструктор класса, инициализирует координаты, ресурсы персонажа, его высоту и ширину*/
     /*! \param X координата x*/
     /*! \param Y координата y*/
-    /*! \param resManager ссылка на ресурсы*/
+    /*! \param resMng ссылка на ресурсы*/
     /*! \param W ширина персонажа*/
     /*! \param H высота персонажа*/
-    Character(float X, float Y, ResourceManager& resManager, int W, int H, InputManager& inputMng, Collisions& collis) :
-        Entity(X, Y, resManager, W, H, inputMng), 
+    Character(float X, float Y, ResourceManager& resMng, int W, int H, InputManager& inputMng, Collisions& collis) :
+        Entity(X, Y, resMng, W, H, inputMng), 
         _mD{0, 0, 0, Direction::RIGHT}, _collis(collis) {};
-    /*! \brief Виртуальная функция деструктора*/
     virtual ~Character() = default;
-    /*! \brief Функция обновления параметров класса*/
-    /*! \param time время обновления кадра*/
-    void update(float time) override;
-    /*! \brief Функция сбрасывания параметров класса*/
+    void update(float time) override = 0;
     void reset() override = 0;
-    /*! \brief Функция установки спрайта*/
     void setupSprite() override = 0;
-    /*! \brief Функция установления скорости*/
-    /*! \param s скорость*/
     void setSpeed(float s) { _mD.speed = s; }
     movingData getSeed() { return _mD; }
-    /*! \brief Функция установления направления*/
-    /*! \param d направление*/
     void setDirection(enum Direction d) { _mD.direct = d; }
 protected:
-    /*! \brief Контекст перемещения персонажа*/
     movingData _mD;
     Collisions& _collis;
 };

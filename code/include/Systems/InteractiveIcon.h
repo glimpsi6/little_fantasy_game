@@ -7,7 +7,7 @@ struct Coordinates;
 class InteractiveIcon : public UIElement
 {
 public:
-    InteractiveIcon(ResourceManager& resManager);
+    InteractiveIcon(ResourceManager& resMng);
     ~InteractiveIcon() = default;
     void update() override;
     void drawInterface(sf::RenderWindow& window) override;

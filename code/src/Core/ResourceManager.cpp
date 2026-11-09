@@ -127,7 +127,7 @@ void ResourceManager::loadTextures(std::string path, std::map<std::string, sf::T
             std::string name = filename.substr(0, dotPos);
 
             textures[name] = sf::Texture();
-            textures[name].loadFromFile(path + filename); //TODO во всех лоады сделать проверку
+            if(!textures[name].loadFromFile(path + filename)) continue;
         }
     }
 }
@@ -158,7 +158,7 @@ void ResourceManager::loadFonts(std::string path, std::map<std::string, sf::Font
             std::string name = filename.substr(0, dotPos);
 
             fonts[name] = sf::Font();
-            fonts[name].loadFromFile(path + filename);
+            if(!fonts[name].loadFromFile(path + filename)) continue;
         }
     }
 }
@@ -173,8 +173,8 @@ void ResourceManager::loadSounds(std::string path, std::map<std::string, sf::Sou
             size_t dotPos = filename.find_last_of('.');
             std::string name = filename.substr(0, dotPos);
 
-            _levelSounds[name] = sf::SoundBuffer();
-            _levelSounds[name].loadFromFile(path + filename);
+            sounds[name] = sf::SoundBuffer();
+            if(!sounds[name].loadFromFile(path + filename)) continue;
         }
     }
 }

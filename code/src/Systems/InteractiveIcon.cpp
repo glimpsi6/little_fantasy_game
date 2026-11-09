@@ -1,7 +1,7 @@
 #include "Systems/InteractiveIcon.h"
 #include "Entities/Entity.h"
 
-InteractiveIcon::InteractiveIcon(ResourceManager& resManager) : UIElement(resManager), _isInteractiveZone(false)
+InteractiveIcon::InteractiveIcon(ResourceManager& resMng) : UIElement(resMng), _isInteractiveZone(false)
 {
     _sprite.setTexture(_resMng.getGlobalTexture("eIcon"));
     _sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));

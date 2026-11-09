@@ -2,9 +2,10 @@
 #define UIELEMENT_H
 #include "Core/ResourceManager.h"
 
-class UIElement{
+class UIElement
+{
 public:
-    UIElement(ResourceManager& resManager) : _resMng(resManager) {};
+    UIElement(ResourceManager& resMng) : _resMng(resMng) {};
     virtual ~UIElement() = default;
     virtual void update() = 0;
     virtual void drawInterface(sf::RenderWindow& window) = 0;

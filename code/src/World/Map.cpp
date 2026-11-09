@@ -1,8 +1,8 @@
 #include "World/Map.h"
 #include "Entities/Entity.h"
 
-Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& resManager) :
-    _w(W), _h(H), _tileSize(tileSize), _resMng(resManager),
+Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& resMng) :
+    _w(W), _h(H), _tileSize(tileSize), _resMng(resMng),
     _tilesetTexture(&_resMng.getLevelTexture(mapTileName))
 {
     _tilesetColumns = (*_tilesetTexture).getSize().x / _tileSize;

@@ -29,16 +29,14 @@ int main() {
     
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Little fantasy game");
 
+    std::vector<std::shared_ptr<Npc>> npcs;
+
 	auto p = std::make_shared<Player>(310, 360, resourceMng, 13, 16, inputMn, collis);
     map.addEntity(p);
 
     auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMng, 13, 16, inputMn, collis);
     map.addEntity(npc);
-
-    // auto chest = std::make_shared<Object>("chest_mini", 312, 300, resourceMng, 16, 16);
-    // map.addEntity(chest);
-
-    // InteractiveIcon eIcon(resourceMng);
+    npcs.push_back(npc);
 
     Frame fr(resourceMng);
 
@@ -55,25 +53,33 @@ int main() {
         }
         
         window.clear(sf::Color::Black);
-
         inputMn.update();
-		p->handleInput(time, currentFrame);
-        map.update(time);
-		window.setView(p->getView());
-        
+
+        if(state == GameState::Playing) {
+            p->handleInput(time, currentFrame);
+            map.update(time);
+        }
+            
+        window.setView(p->getView());
         map.drawFloorLayer(window);
         map.drawWallsLayer(window);
         map.drawEntities(window);
         map.drawFringeLayer(window);
 
+        //ниже UI отрисовка
         window.setView(window.getDefaultView()); 
         fr.drawInterface(window);
+    
+        if(state == GameState::Dialogue) {
+            for(auto n : npcs) {
+                if(n->getDialogueStatus()) {
+                    n->updateDialogue();
+                    n->drawDialogue(window);
+                    break;
+                }
+            }
+        }
 
-        // eIcon.setInteractiveZone(true);
-        // eIcon.setPosition(p->getCoord());
-        // eIcon.drawInterface(window);
-
-        
         window.display();
     }
     

@@ -5,7 +5,7 @@
 class Frame : public UIElement
 {
 public:
-    Frame(ResourceManager& resManager);
+    Frame(ResourceManager& resMng);
     ~Frame() = default;
     void update() override;
     void drawInterface(sf::RenderWindow& window) override;
