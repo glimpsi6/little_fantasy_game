@@ -9,6 +9,16 @@ ResourceManager::ResourceManager()
     loadTextures("assets/global/textures/", _globalTextures);
     // Загрузка шрифтов
     loadFonts("assets/global/fonts/", _globalFonts);
+    // // Загрузка звуков
+    // loadSounds("assets/global/sounds/", _globalSounds);
+}
+
+ResourceManager::~ResourceManager()
+{
+    unloadResource();
+    _globalTextures.clear();
+    _globalFonts.clear();
+    _globalSounds.clear();
 }
 
 /*---------------------------------------------------------------------------------------*/

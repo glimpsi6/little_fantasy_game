@@ -14,6 +14,7 @@ public:
     Collisions(Map& map) : _map(map) {}
     void interactionWithMap(Character& character, Coordinates& coord);
     // void setCharacters(std::vector<std::shared_ptr<Character>>& characters);
+    void interactionPlayerWithNPC(Character& character);
 private:
     Map& _map;
     std::vector<std::shared_ptr<Character>>* _characters;

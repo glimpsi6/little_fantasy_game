@@ -34,7 +34,11 @@ int main() {
 	auto p = std::make_shared<Player>(310, 360, resourceMng, 13, 16, inputMn, collis);
     map.addEntity(p);
 
-    auto npc = std::make_shared<Npc>("npc", 310, 200, resourceMng, 13, 16, inputMn, collis);
+    auto king = std::make_shared<Npc>("king", 310, 137, resourceMng, 20, 32, inputMn, collis);
+    map.addEntity(king);
+    npcs.push_back(king);
+
+    auto npc = std::make_shared<Npc>("npc", 305, 250, resourceMng, 13, 14, inputMn, collis);
     map.addEntity(npc);
     npcs.push_back(npc);
 

@@ -14,7 +14,7 @@ public:
 
     void setInteractiveZone(bool flag) { _isInteractiveZone = flag; }
     bool getInteractiveZone() { return _isInteractiveZone; }
-    void setPosition(Coordinates coord);
+    void setPosition(Coordinates entity_coord, int w);
 private:
     bool _isInteractiveZone;
     sf::Sprite _sprite;

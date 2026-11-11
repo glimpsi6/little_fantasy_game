@@ -57,7 +57,7 @@ public:
     void drawEntity(sf::RenderWindow& window) { 
         window.draw(_sprite); 
         if(_eIcon.getInteractiveZone()) {
-            _eIcon.setPosition(this->getCoord());
+            _eIcon.setPosition(this->getCoord(), _w);
             _eIcon.drawInterface(window);
         } 
     }
@@ -68,10 +68,10 @@ public:
     void setCoord(Coordinates coord) { _coord = coord; }
 
     /*! \brief Функция получения ширины сущности*/
-    float getWidth() { return _w; }
+    int getWidth() { return _w; }
     
     /*! \brief Функция получения высоты сущности*/
-    float getHeight() { return _h; }
+    int getHeight() { return _h; }
 
     virtual void setEIcon(bool flag) { _eIcon.setInteractiveZone(flag); }
     // virtual void setAction() = 0;
@@ -86,7 +86,7 @@ protected:
     /*! \brief спрайт класса*/
     sf::Sprite _sprite;
     /*! \brief Ширина и высота спрайта персонажа*/
-    int _w, _h; 
+    const int _w, _h; 
 
     /*! \brief Виртуальная функция установки спрайта*/
     virtual void setupSprite() = 0;

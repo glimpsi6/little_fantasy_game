@@ -29,13 +29,6 @@ void Collisions::interactionWithMap(Character& ch, Coordinates& coord)
         Coordinates npcCoord = _map.getEntities()[i]->getCoord();
         int npcH = _map.getEntities()[i]->getHeight();
         int npcW = _map.getEntities()[i]->getWidth();
-
-        if( (ch.getCoord().x - npcCoord.x < radius && npcCoord.x - ch.getCoord().x < radius) &
-            (ch.getCoord().y - npcCoord.y < radius && npcCoord.y - ch.getCoord().y < radius)) {
-            _map.getEntities()[i]->setEIcon(true);
-        } else {
-            _map.getEntities()[i]->setEIcon(false);
-        }
  
         // Проверяем пересечение
         bool overlapX = (ch.getCoord().x < npcCoord.x + npcW) && (ch.getCoord().x + ch.getWidth() > npcCoord.x);
@@ -55,6 +48,32 @@ void Collisions::interactionWithMap(Character& ch, Coordinates& coord)
         }
     }
 
+}
+
+//todo по логике надо в другое место или сделать из класса менеджера обработки карт
+void Collisions::interactionPlayerWithNPC(Character& ch)
+{
+    for (size_t i = 0; i < _map.getEntities().size(); i++)
+    {
+        if(&ch == _map.getEntities()[i].get()) continue;
+
+        Coordinates npcCoord = _map.getEntities()[i]->getCoord();
+        int npcH = _map.getEntities()[i]->getHeight();
+        int npcW = _map.getEntities()[i]->getWidth();
+
+        float npc_center_x = npcCoord.x + npcW / 2;
+        float npc_center_y = npcCoord.y + npcH / 2;
+
+        float ch_center_x = ch.getCoord().x + ch.getWidth() / 2;
+        float ch_center_y = ch.getCoord().y + ch.getHeight() / 2;
+
+        if( (ch_center_x - npc_center_x < radius && npc_center_x - ch_center_x < radius) &
+            (ch_center_y - npc_center_y < radius && npc_center_y - ch_center_y < radius)) {
+            _map.getEntities()[i]->setEIcon(true);
+        } else {
+            _map.getEntities()[i]->setEIcon(false);
+        }
+    }
 }
 
 // void Collisions::setCharacters(std::vector<std::shared_ptr<Character>> &characters)

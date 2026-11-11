@@ -27,6 +27,7 @@
     },
     "last.imagePath": "/Users/ekat/Documents/projects/little fantasy game/img",
     "map.height": 30,
+    "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 40,

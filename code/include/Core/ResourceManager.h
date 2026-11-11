@@ -18,6 +18,7 @@ class ResourceManager {
 public:
     /*! \brief Функция загрузки глобальных ресурсов*/
     ResourceManager();
+    ~ResourceManager();
     /*! \brief Функция загрузки ресурсов определенной локации*/
     /*! \param idnLoc идентификатор локации*/
     void loadResource(enum IdnLocation idnLoc);
