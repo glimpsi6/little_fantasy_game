@@ -9,6 +9,11 @@ Player::Player(float X, float Y, ResourceManager& resMng,
     setupSprite();
 }
 
+void Player::updateView(sf::Vector2u windowSize)
+{
+    _view = getLetterboxView(_view, windowSize.x, windowSize.y);
+}
+
 void Player::update(float time) 
 {
     switch (_mD.direct)

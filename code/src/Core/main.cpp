@@ -54,6 +54,8 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::Resized)
+                p->updateView(window.getSize());
         }
         
         window.clear(sf::Color::Black);

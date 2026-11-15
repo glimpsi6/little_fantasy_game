@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <SFML/Graphics.hpp>
+
 /*---------------------------------------------------------------------------------------*/
 
 inline constexpr int WINDOW_WIDTH = 640;
@@ -26,6 +28,33 @@ enum GameState {
 
 #pragma once
 inline GameState state = GameState::Playing; 
+
+inline sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
+    float windowRatio = (float) windowWidth / (float) windowHeight;
+    float viewRatio = view.getSize().x / (float) view.getSize().y;
+    float sizeX = 1;
+    float sizeY = 1;
+    float posX = 0;
+    float posY = 0;
+
+    bool horizontalSpacing = true;
+    if (windowRatio < viewRatio)
+        horizontalSpacing = false;
+
+    // Если соотношение сторон окна шире, чем у View, по бокам появятся черные полосы
+    if (horizontalSpacing) {
+        sizeX = viewRatio / windowRatio;
+        posX = (1 - sizeX) / 2.f;
+    }
+    // В противном случае черные полосы появятся сверху и снизу
+    else {
+        sizeY = windowRatio / viewRatio;
+        posY = (1 - sizeY) / 2.f;
+    }
+
+    view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
+    return view;
+}
 
 //TODO sfml заменить на сабмодуль или нет? как то много весит
 //TODO у меня мало обработок ошибок и логирования в ресурс менеджере хороший пример в гетерах

@@ -18,7 +18,6 @@ void InteractiveIcon::setPosition(Coordinates entity_coord, int w)
     if(w > 16) { //todo убрать magic num
         x += (w - 16) / 2;
     }
-
     float y = entity_coord.y - 20;
     _sprite.setPosition(x, y);
 }
