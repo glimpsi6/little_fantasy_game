@@ -10,6 +10,7 @@ Map::Map(std::string mapTileName, int W, int H, int tileSize, ResourceManager& r
 
 
     parseTMX();
+    parseCollisionObjects();
 }
 
 void Map::update(float time)
@@ -138,6 +139,69 @@ std::vector<int> Map::parseCSV(const std::string& csvLine)
     }
     
     return result;
+}
+
+void Map::parseCollisionObjects() 
+{
+    pugi::xml_document doc;
+
+    if (!doc.load_file(_resMng.getLevelMap("trone_map").c_str())) {
+        std::cerr << "Failed to load trone_map.tmx\n";
+        return;
+    }
+
+    pugi::xml_node mapNode = doc.child("map");
+    if (!mapNode) {
+        std::cerr << "No <map> node in TMX\n";
+        return;
+    }
+
+    for (pugi::xml_node group : mapNode.children("objectgroup")) {
+        if (std::string(group.attribute("name").as_string()) != "border")
+            continue;
+
+        for (pugi::xml_node obj : group.children("object")) {
+            CollisionObject col;
+
+            float objX = obj.attribute("x").as_float();
+            float objY = obj.attribute("y").as_float();
+            float w    = obj.attribute("width").as_float(0.f);
+            float h    = obj.attribute("height").as_float(0.f);
+
+            pugi::xml_node polyNode = obj.child("polygon");
+            if (polyNode) {
+                col.isPolygon = true;
+                // Парсим "points": "0,0 40,-20 80,0"
+                std::string pts = polyNode.attribute("points").as_string();
+                std::stringstream ss(pts);
+                std::string pair;
+                while (ss >> pair) {
+                    size_t comma = pair.find(',');
+                    if (comma != std::string::npos) {
+                        float px = std::stof(pair.substr(0, comma));
+                        float py = std::stof(pair.substr(comma + 1));
+                        // Мировые координаты = позиция объекта + точка
+                        col.points.emplace_back(objX + px, objY + py);
+                    }
+                }
+                // Вычисляем AABB для быстрой отсечки
+                if (!col.points.empty()) {
+                    float minX = col.points[0].x, maxX = minX;
+                    float minY = col.points[0].y, maxY = minY;
+                    for (auto& p : col.points) {
+                        minX = std::min(minX, p.x); maxX = std::max(maxX, p.x);
+                        minY = std::min(minY, p.y); maxY = std::max(maxY, p.y);
+                    }
+                    col.bounds = sf::FloatRect(minX, minY, maxX - minX, maxY - minY);
+                }
+            } else {
+                // Прямоугольник
+                col.bounds = sf::FloatRect(objX, objY, w, h);
+            }
+
+            _colliders.push_back(std::move(col));
+        }
+    }
 }
 
 void Map::parseTMX()

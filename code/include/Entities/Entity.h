@@ -62,8 +62,12 @@ public:
         } 
     }
 
+    sf::FloatRect getHitbox() const {
+        return sf::FloatRect(_coord.x, _coord.y, _w, _h);
+    }
+
     /*! \brief Функция получения координатов объекта класса*/
-    Coordinates getCoord() { return _coord; }
+    Coordinates& getCoord() { return _coord; }
 
     void setCoord(Coordinates coord) { _coord = coord; }
 
@@ -72,6 +76,8 @@ public:
     
     /*! \brief Функция получения высоты сущности*/
     int getHeight() { return _h; }
+
+    sf::Sprite getSprite() { return _sprite; }
 
     virtual void setEIcon(bool flag) { _eIcon.setInteractiveZone(flag); }
     // virtual void setAction() = 0;

@@ -11,7 +11,7 @@ Npc::Npc(std::string npcName, float X, float Y, ResourceManager& resMng, int W, 
 void Npc::update(float time)
 {
     _mD.speed = 0;
-    _collis.interactionWithMap(*this, _coord);
+    _collis.interactionWithMap(*this);
     _sprite.setPosition(_coord.x, _coord.y);
 
     if(_eIcon.getInteractiveZone() && _inputMng.isKeyJustPressed(sf::Keyboard::E) && state == GameState::Playing) {

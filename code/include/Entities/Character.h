@@ -54,7 +54,7 @@ public:
     void reset() override = 0;
     void setupSprite() override = 0;
     void setSpeed(float s) { _mD.speed = s; }
-    movingData getSeed() { return _mD; }
+    movingData& getMovingData() { return _mD; }
     void setDirection(enum Direction d) { _mD.direct = d; }
 protected:
     movingData _mD;

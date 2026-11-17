@@ -28,7 +28,7 @@ void Player::update(float time)
     _coord.y += _mD.dy * time;//аналогично по y
 
     _mD.speed = 0;//зануляем скорость, чтобы персонаж остановился
-    _collis.interactionWithMap(*this, _coord);
+    _collis.interactionWithMap(*this);
     _collis.interactionPlayerWithNPC(*this);
     _sprite.setPosition(_coord.x, _coord.y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы спрайт стоял на месте
 }

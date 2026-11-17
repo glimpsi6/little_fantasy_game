@@ -13,6 +13,8 @@ find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 file(COPY ${CMAKE_SOURCE_DIR}/code/assets DESTINATION ${CMAKE_BINARY_DIR})
 
 set(SOURCES
+    code/include/Core/pugixml.hpp
+    code/src/Core/pugixml.cpp 
     code/src/Core/main.cpp
     code/src/Core/InputManager.cpp
     code/src/Core/ResourceManager.cpp
